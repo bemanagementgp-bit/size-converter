@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resize Image or Video to Exact Size – Pixels, Percent or Presets (Free) | Size Converter</title>
+  <meta name="description" content="Resize images and short videos to a specific size online for free. Exact pixels, percent, longest side or social presets, with crop, pad or stretch. Runs in your browser, nothing is uploaded.">
+  <link rel="canonical" href="https://__SITE_URL__/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://__SITE_URL__/">
+  <meta property="og:title" content="Resize Image or Video to Exact Size – Pixels, Percent or Presets (Free) | Size Converter">
+  <meta property="og:description" content="Free in-browser image and video resizer. Set exact pixels, a percentage, the longest side or a social media preset; keep ratio, crop to fill, stretch or pad. No upload.">
+  <meta property="og:image" content="https://__SITE_URL__/favicon.svg">
+  <meta property="og:site_name" content="Size Converter">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Resize Image or Video to Exact Size – Free Online Tool">
+  <meta name="twitter:description" content="Resize images and short videos to exact pixels, percent or presets in your browser. Crop, pad or stretch. Nothing is uploaded.">
+  <meta name="twitter:image" content="https://__SITE_URL__/favicon.svg">
+  <meta name="theme-color" content="#0f0f10">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Size Converter – Resize Images and Videos to Any Size",
+    "url": "https://__SITE_URL__/",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any (web browser)",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Resize images and short videos to an exact pixel size, a percentage, a longest-side limit or a social media preset. Keep ratio, crop to fill, stretch or pad. Everything is processed locally in your browser and never uploaded.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": [
+      "Resize to exact pixels, percent, longest side or presets",
+      "Keep ratio, crop to fill with anchor, stretch or pad with a color",
+      "Batch resize PNG, JPG, WebP, GIF, BMP and SVG",
+      "Resize MP4, WebM and MOV videos to WebM in the browser",
+      "Convert between JPG, PNG and WebP with a quality slider",
+      "100% private – nothing is uploaded"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I resize an image to a specific size in pixels?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Drop the image, choose 'Exact' under Output size and type the width and height, for example 800 × 600. With the aspect lock on, typing one side fills in the other so the picture is not distorted. If the target has a different shape than the original, pick a Fit mode: 'Keep ratio' fits inside the box, 'Crop to fill' trims the edges, 'Stretch' forces the exact size and 'Pad' adds a background. Then download the result." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does resizing reduce image quality?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Downscaling keeps the image sharp when it is done well. Size Converter shrinks large images in steps (halving until close to the target) with high-quality resampling, which avoids the aliasing and jagged edges that a single-step resize produces. Upscaling cannot invent detail, so an enlarged image always looks softer; the Pro supersampling option renders at 2x and downsamples to make the result as clean as possible. Saving as PNG keeps every pixel; JPG and WebP use the quality slider (90 by default)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I resize a video online without uploading it?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Size Converter decodes the video with your browser's built-in player, draws every frame onto a canvas at the new size and records the result with the MediaRecorder API, copying the audio track. Nothing is sent to a server. The output is a WebM file (VP9 or VP8 with Opus audio). Free users can convert clips up to 30 seconds at up to 720p; Pro extends this to 5 minutes and 1080p or 4K." }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is the video output WebM and not MP4?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Browsers can record video with MediaRecorder, but almost all of them only encode to WebM (VP8/VP9) – MP4/H.264 recording is not available in a plain web page without shipping a multi-megabyte encoder. WebM plays in Chrome, Edge, Firefox, Safari 16+, Android, VLC and uploads fine to YouTube, Instagram and most social networks. If a specific app insists on MP4, open the WebM in a free converter such as HandBrake or VLC (Media → Convert) and export to H.264." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which sizes do social networks use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Preset menu includes the current standards: Instagram square 1080 × 1080, Instagram portrait 1080 × 1350, Stories and Reels 1080 × 1920, YouTube thumbnail 1280 × 720, X/Twitter header 1500 × 500 and LinkedIn banner 1584 × 396, plus web widths (1920, 1600, 1200, 800, 400), print sizes (A4 and Letter at 300 dpi) and avatar/favicon squares from 512 down to 32 pixels. Use 'Crop to fill' with the anchor grid so the subject stays in frame when the ratio changes." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Size Converter free and are my files private?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Resizing images and short videos is free with no sign-up. Free exports carry a small 'Size Converter · free' badge and 'Download all' handles 10 files at a time. Files are processed entirely on your device with the Canvas and MediaRecorder APIs and never leave your computer; the tool keeps working offline once loaded. Size Converter Pro is a one-time purchase that removes the badge and unlocks unlimited batches with ZIP download, longer and larger videos, supersampled upscaling and saved size presets." }
+      }
+    ]
+  }
+  </script>
+  <script src="/config.js"></script>
+  <script src="/monetize.js"></script>
+  <script src="/studio.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+    <a class="brand" href="/" aria-label="Size Converter home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text"><span class="brand-name">Size Converter</span><span class="brand-desc">Resize images & videos</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <details class="more-tools">
+        <summary class="btn btn-ghost btn-sm">More tools ▾</summary>
+        <div class="menu">
+          <a href="https://quickinvoice-tool.vercel.app"><span class="mi">Q</span>QuickInvoice<small>Invoices</small></a>
+          <a href="https://ratecalc-tool.vercel.app"><span class="mi">R</span>RateCalc<small>Freelance rates</small></a>
+          <a href="https://qrforge-tool.vercel.app"><span class="mi">Q</span>QRForge<small>QR codes</small></a>
+          <a href="https://squish-tool.vercel.app"><span class="mi">S</span>Squish<small>Image compressor</small></a>
+          <a href="https://growthcalc-tool.vercel.app"><span class="mi">G</span>GrowthCalc<small>Compound interest</small></a>
+          <a href="https://subnetkit-tool.vercel.app"><span class="mi">N</span>SubnetKit<small>IP subnets</small></a>
+          <a href="https://shotstudio-tool.vercel.app"><span class="mi">S</span>Screenshot Studio<small>Screenshot mockups</small></a>
+          <a href="https://mockuplab-tool.vercel.app"><span class="mi">M</span>Social Mockup Lab<small>Chat & post mockups</small></a>
+          <a href="https://carouselmaker-tool.vercel.app"><span class="mi">C</span>Carousel Maker<small>Carousel slides</small></a>
+          <a href="https://creativeresize-tool.vercel.app"><span class="mi">R</span>Creative Resize<small>Social formats</small></a>
+          <a href="https://framelab-tool.vercel.app"><span class="mi">F</span>Frame Lab<small>Photo frames & mockups</small></a>
+          <a href="https://sizeconverter-tool.vercel.app" class="current"><span class="mi">Z</span>Size Converter<small>Image & video resizer</small></a>
+        </div>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="brand-by">by <b>Be Management</b></span>
+      <button class="btn btn-primary btn-sm" onclick="openPro('nav')">Pro</button><button class="btn icon-btn btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+    </nav>
+    </div>
+  </div>
+</header>
+
+<section class="hero container">
+  <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Be Management Tools · Creative · Resize</span>
+  <h1>Resize Images and Videos to Any Size</h1>
+  <p class="tagline">Set exact pixels, a percentage or a preset and resize images or short videos right in your browser. Keep the aspect ratio or crop to fit.</p>
+  <div class="badges">
+  <span class="badge">100% free</span>
+  <span class="badge">No sign-up</span>
+  <span class="badge">Runs in your browser</span>
+  <span class="badge">Nothing uploaded</span>
+  <span class="badge">Images &amp; video</span>
+  </div>
+</section>
+
+<main class="container">
+  <div class="studio">
+    <div class="studio-stage">
+      <div class="studio-canvas" id="stage">
+        <canvas id="preview" aria-label="Live preview of the resized image"></canvas>
+        <div class="studio-drop" id="drop" tabindex="0" role="button" aria-label="Drop images or videos, or press Enter to choose files">
+          <div class="box"><div class="ic">⬆</div><b>Drop images or videos, or click to upload</b><small>PNG, JPG, WebP, GIF, BMP, SVG · MP4, WebM, MOV · paste with Ctrl+V · nothing is uploaded</small>
+            <div class="drop-actions"><button type="button" class="btn btn-sm" id="sampleBtn">Try a sample image</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-meta">
+        <span id="stageInfo">Output: <b>—</b></span>
+        <span id="freeInfo">Free: small badge on exports · Download all 10 at a time · video ≤ 30 s, 720p</span>
+      </div>
+
+      <div class="card list-card hidden" id="listCard">
+        <div class="row-between list-head">
+          <h2 class="card-title">Files <span class="count-pill" id="countPill">0</span></h2>
+          <div class="row">
+            <button type="button" class="btn btn-sm" id="rerunBtn" title="Re-run every file with the current settings">↻ Re-run all</button>
+            <button type="button" class="btn btn-sm btn-danger" id="clearBtn">Clear all</button>
+          </div>
+        </div>
+        <div class="progress hidden" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <ul class="file-list" id="fileList" aria-live="polite"></ul>
+      </div>
+
+      <div class="studio-actions" role="toolbar" aria-label="Export actions">
+        <button type="button" class="btn btn-primary" id="downloadAllBtn" disabled>⬇ Download all</button>
+        <button type="button" class="btn" id="zipBtn" disabled>Download ZIP <span class="pro-badge">PRO</span></button>
+        <span class="hint" id="downloadHint" style="margin:0">Drop files to start.</span>
+      </div>
+      <div class="ad-slot horizontal" data-slot="below-tool"></div>
+    </div>
+
+    <aside class="studio-panel">
+      <details class="panel" open>
+        <summary>Output size</summary>
+        <div class="panel-body">
+          <div class="seg" id="modeSeg" role="group" aria-label="Size mode">
+            <button type="button" data-value="exact">Exact</button>
+            <button type="button" data-value="percent">Percent</button>
+            <button type="button" data-value="longest">Longest</button>
+            <button type="button" data-value="preset">Preset</button>
+          </div>
+
+          <div class="mode-row" id="exactRow">
+            <div class="dims">
+              <div class="field compact"><label for="wIn">Width (px)</label><input type="number" id="wIn" min="1" max="16384" step="1" value="1080" inputmode="numeric"></div>
+              <button type="button" class="btn icon-btn btn-sm lock-btn active" id="lockBtn" aria-pressed="true" aria-label="Lock aspect ratio" title="Lock aspect ratio">🔗</button>
+              <div class="field compact"><label for="hIn">Height (px)</label><input type="number" id="hIn" min="1" max="16384" step="1" value="1080" inputmode="numeric"></div>
+            </div>
+            <p class="hint" id="exactHint">With the lock on, typing one side computes the other from the first loaded file.</p>
+          </div>
+
+          <div class="mode-row hidden" id="percentRow">
+            <div class="ctl wide"><label for="pct">Scale</label><input type="range" id="pct" min="1" max="400" step="1" value="50"><span class="v" id="pctV">50%</span></div>
+            <div class="chip-row" id="pctChips" role="group" aria-label="Quick percentages">
+              <button type="button" class="chip" data-value="25">25%</button>
+              <button type="button" class="chip" data-value="50">50%</button>
+              <button type="button" class="chip" data-value="75">75%</button>
+              <button type="button" class="chip" data-value="150">150%</button>
+              <button type="button" class="chip" data-value="200">200%</button>
+            </div>
+          </div>
+
+          <div class="mode-row hidden" id="longestRow">
+            <div class="field compact"><label for="longest">Longest side (px)</label><input type="number" id="longest" min="1" max="16384" step="1" value="1920" inputmode="numeric"></div>
+            <div class="chip-row" id="longestChips" role="group" aria-label="Quick sizes">
+              <button type="button" class="chip" data-value="2048">2048</button>
+              <button type="button" class="chip" data-value="1920">1920</button>
+              <button type="button" class="chip" data-value="1280">1280</button>
+              <button type="button" class="chip" data-value="1024">1024</button>
+              <button type="button" class="chip" data-value="640">640</button>
+            </div>
+          </div>
+
+          <div class="mode-row hidden" id="presetRow">
+            <div class="field compact">
+              <label for="presetSel">Preset</label>
+              <select id="presetSel">
+                <optgroup label="Social">
+                  <option value="ig-square">Instagram square · 1080 × 1080</option>
+                  <option value="ig-portrait">Instagram portrait · 1080 × 1350</option>
+                  <option value="story">Story / Reel / TikTok · 1080 × 1920</option>
+                  <option value="yt-thumb">YouTube thumbnail · 1280 × 720</option>
+                  <option value="x-header">X header · 1500 × 500</option>
+                  <option value="li-banner">LinkedIn banner · 1584 × 396</option>
+                </optgroup>
+                <optgroup label="Web (longest side)">
+                  <option value="web-1920">Full HD · 1920 px</option>
+                  <option value="web-1600">Large · 1600 px</option>
+                  <option value="web-1200">Blog · 1200 px</option>
+                  <option value="web-800">Medium · 800 px</option>
+                  <option value="web-400">Thumbnail · 400 px</option>
+                </optgroup>
+                <optgroup label="Print (300 dpi)">
+                  <option value="a4">A4 · 2480 × 3508</option>
+                  <option value="letter">US Letter · 2550 × 3300</option>
+                </optgroup>
+                <optgroup label="Avatars &amp; icons">
+                  <option value="av-512">Avatar · 512 × 512</option>
+                  <option value="av-256">Avatar · 256 × 256</option>
+                  <option value="av-128">Icon · 128 × 128</option>
+                  <option value="av-64">Icon · 64 × 64</option>
+                  <option value="av-32">Favicon · 32 × 32</option>
+                </optgroup>
+              </select>
+            </div>
+            <p class="hint" id="presetHint"></p>
+          </div>
+
+          <div class="switch-row"><span>No upscaling<small>Never enlarge beyond the original pixels</small></span><label class="switch"><input type="checkbox" id="noUpscale" checked aria-label="No upscaling"><i></i></label></div>
+          <div class="switch-row" id="ssRow"><span>Supersample upscales <span class="pro-badge">PRO</span><small>Render at 2x, then downsample for cleaner enlargements</small></span><label class="switch"><input type="checkbox" id="supersample" aria-label="Supersample upscales"><i></i></label></div>
+
+          <p class="sub-label">Saved size presets</p>
+          <div class="row">
+            <input type="text" id="presetName" placeholder="Name, e.g. Shop listing" maxlength="40" style="flex:1;min-width:0">
+            <button type="button" class="btn btn-sm" id="savePreset">Save</button>
+          </div>
+          <div class="preset-list" id="presetList"></div>
+          <p class="hint" id="savedHint">Free: 1 saved preset · Pro: unlimited</p>
+        </div>
+      </details>
+
+      <details class="panel" open>
+        <summary>Fit</summary>
+        <div class="panel-body">
+          <div class="seg" id="fitSeg" role="group" aria-label="Fit mode">
+            <button type="button" data-value="contain">Keep ratio</button>
+            <button type="button" data-value="cover">Crop to fill</button>
+            <button type="button" data-value="stretch">Stretch</button>
+            <button type="button" data-value="pad">Pad</button>
+          </div>
+          <p class="hint" id="fitHint"></p>
+          <div id="anchorRow" class="hidden">
+            <p class="sub-label">Anchor</p>
+            <div class="anchor-grid" id="anchorGrid" role="group" aria-label="Crop anchor">
+              <button type="button" data-value="tl" aria-label="Top left"></button>
+              <button type="button" data-value="t" aria-label="Top"></button>
+              <button type="button" data-value="tr" aria-label="Top right"></button>
+              <button type="button" data-value="l" aria-label="Left"></button>
+              <button type="button" data-value="c" aria-label="Center" class="active"></button>
+              <button type="button" data-value="r" aria-label="Right"></button>
+              <button type="button" data-value="bl" aria-label="Bottom left"></button>
+              <button type="button" data-value="b" aria-label="Bottom"></button>
+              <button type="button" data-value="br" aria-label="Bottom right"></button>
+            </div>
+          </div>
+          <div id="padRow" class="hidden">
+            <p class="sub-label">Padding background</p>
+            <div class="row-between">
+              <div class="inline-color"><input type="color" id="padColor" value="#ffffff" aria-label="Padding color"><span class="hint" style="margin:0">Color</span></div>
+              <label class="checkbox"><input type="checkbox" id="padTransparent"> Transparent (PNG/WebP)</label>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="panel" open>
+        <summary>Format</summary>
+        <div class="panel-body">
+          <div class="seg" id="formatSeg" role="group" aria-label="Output format">
+            <button type="button" data-value="keep">Keep</button>
+            <button type="button" data-value="image/jpeg">JPG</button>
+            <button type="button" data-value="image/png">PNG</button>
+            <button type="button" data-value="image/webp">WebP</button>
+          </div>
+          <div class="ctl wide" id="qualityRow" style="margin-top:12px"><label for="quality">Quality</label><input type="range" id="quality" min="10" max="100" step="1" value="90"><span class="v" id="qualityV">90</span></div>
+          <p class="hint" id="formatHint"></p>
+          <div class="field compact" style="margin-top:10px">
+            <label for="pattern">Filename pattern</label>
+            <input type="text" id="pattern" value="{name}-{w}x{h}" placeholder="{name}-{w}x{h}" autocomplete="off" maxlength="80">
+            <p class="hint">Use {name}, {w}, {h}, {index}. Extension is added automatically.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="panel">
+        <summary>Video</summary>
+        <div class="panel-body">
+          <p class="hint" style="margin-top:0">Videos are decoded by your browser, every frame is redrawn at the new size and re-recorded with the audio track. Output is <b>.webm</b> (VP9 or VP8 + Opus). Conversion runs at 1x speed, so a 20 s clip takes about 20 s.</p>
+          <ul class="limits" id="videoLimits">
+            <li>Free: up to <b>30 s</b>, max <b>720p</b> output</li>
+            <li>Pro: up to <b>5 min</b>, <b>1080p / 4K</b> output</li>
+          </ul>
+          <p class="hint">MP4 output is not possible in a browser without a huge encoder download. WebM plays in all modern browsers, VLC and on YouTube/Instagram; if an app insists on MP4, convert the WebM with HandBrake or VLC (Media → Convert).</p>
+          <p class="hint" id="recorderSupport"></p>
+        </div>
+      </details>
+
+      <div class="ad-slot" data-slot="sidebar-1"></div>
+      <div class="card pro-card">
+        <h3>Go Pro <span class="pro-badge">LIFETIME</span></h3>
+        <ul>
+          <li>No watermark on images or video</li>
+          <li>Unlimited batch + ZIP download</li>
+          <li>Videos up to 5 min at 1080p / 4K</li>
+          <li>Supersampled upscaling &amp; saved presets</li>
+        </ul>
+        <button class="btn btn-primary btn-block" onclick="openPro('sidebar')">Get Pro – <span data-pro-price>$9</span> one-time</button>
+      </div>
+      <div class="card lead-card" id="leadCard" hidden>
+        <h3>Image & video tips</h3>
+        <p class="hint">Export settings that keep quality high and files small, plus new tools. No spam.</p>
+        <form class="lead-form" onsubmit="return subscribeNewsletter(event)">
+          <input type="email" name="email" required placeholder="you@email.com" aria-label="Email address" autocomplete="email">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <p class="hint tiny">No spam. Unsubscribe anytime.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<section class="content container">
+  <div class="features">
+    <div class="feature"><div class="ic">📐</div><h3>Any size, four ways</h3><p>Exact width × height with an aspect lock, a percentage from 1 to 400 %, a longest-side limit, or 18 presets for social, web, print and avatars.</p></div>
+    <div class="feature"><div class="ic">✂️</div><h3>Keep, crop, stretch or pad</h3><p>Fit inside the box, crop to fill with a nine-point anchor, force the exact size, or pad with a color or transparency.</p></div>
+    <div class="feature"><div class="ic">🎬</div><h3>Videos too</h3><p>Resize MP4, WebM and MOV clips to 9:16, 1:1 or 16:9 and get a WebM with the original audio, recorded entirely in your browser.</p></div>
+    <div class="feature"><div class="ic">🔒</div><h3>Private by design</h3><p>Files are decoded, resized and encoded on your device with the Canvas and MediaRecorder APIs. No upload, no server, works offline.</p></div>
+  </div>
+
+  <h2>How to resize an image without losing quality</h2>
+  <p>Resizing changes the number of pixels, so the question is really how the new pixels are computed. When you shrink a 4000-pixel photo to 800 pixels in one pass, each output pixel has to summarise 25 source pixels, and a naive resampler simply skips most of them. That is where jagged diagonals, shimmering textures and moiré in fabric come from. Size Converter avoids it by <strong>downscaling in steps</strong>: the image is halved repeatedly with high-quality bilinear filtering until it is within 2× of the target, then resampled once more to the exact size. Each step averages neighbouring pixels properly, so edges stay smooth and fine detail is blended instead of dropped.</p>
+  <p>Format matters as much as the resampler. Save screenshots, logos, text and anything with flat colour as <strong>PNG</strong>, which is lossless. Save photos as <strong>JPG</strong> or <strong>WebP</strong> at quality 85–92; below 80 you start to see blocks around edges. WebP is about 30 % smaller than JPG at the same quality and keeps transparency, which makes it the best choice for websites. If you need transparency and maximum compatibility, PNG is the only option.</p>
+  <p>Enlarging is different: no resizer can create detail that was never captured, so a 400-pixel image stretched to 1600 pixels will always look soft. Keep the <em>No upscaling</em> switch on for everyday use. When you do need to enlarge, say for a print, Pro's <strong>supersampling</strong> renders the image at twice the target size and downsamples it, which produces cleaner edges than a direct enlargement.</p>
+
+  <h2>When you need an exact size</h2>
+  <p>Most forms and platforms do not want "about this big"; they want a precise pixel box. Typical cases:</p>
+  <ul>
+    <li><strong>ID and passport photos.</strong> Online applications usually ask for a square or 35 × 45 mm image at a fixed pixel size (600 × 600 for the US DV lottery, 413 × 531 for many 35 × 45 mm portals). Use <em>Exact</em> with <em>Crop to fill</em> and move the anchor so the head stays centred.</li>
+    <li><strong>Marketplace listings.</strong> Etsy, eBay, Amazon and Shopify render product photos best at 2000 pixels on the longest side, square if possible. Use <em>Pad</em> with a white background to turn a 4:3 photo into a 1:1 listing image without cutting anything off.</li>
+    <li><strong>Email signatures.</strong> A logo for a signature should be 300–400 pixels wide and under 50 KB so it does not bloat every message; resize with <em>Longest side</em> 320 and save as PNG.</li>
+    <li><strong>Favicons and app icons.</strong> The avatar presets produce 512, 256, 128, 64 and 32-pixel squares. Resize the 512 version first, then make the smaller ones from the same source rather than from each other.</li>
+    <li><strong>Social covers.</strong> An X header is 1500 × 500 and a LinkedIn banner is 1584 × 396, both very wide; crop a landscape photo with the anchor set to the part you want to keep.</li>
+  </ul>
+
+  <h2>Resizing video: resolution, aspect ratio and bitrate</h2>
+  <p>A video's <strong>resolution</strong> is the pixel size of each frame; 1920 × 1080 is 1080p, 1280 × 720 is 720p, 3840 × 2160 is 4K. The <strong>aspect ratio</strong> is the shape: 16:9 for YouTube and TV, 9:16 for Stories, Reels, Shorts and TikTok, 1:1 for feed posts and 4:5 for Instagram portrait. Converting between shapes always means cropping or padding, and this is where the <em>Crop to fill</em> anchor earns its keep: for a talking-head clip going from 16:9 to 9:16, set the anchor to the centre (or wherever the person is) and the subject stays in frame while the empty background is trimmed.</p>
+  <p><strong>Bitrate</strong> is how many bits per second the encoder may spend, and it determines file size and quality far more than resolution does. Size Converter picks a bitrate proportional to the output pixel count, roughly 2.5 Mbps for 720p and 5 Mbps for 1080p, which keeps uploads small while looking clean on a phone. Because the clip plays at normal speed while it is re-recorded, a 30-second video takes about 30 seconds; keep the tab in the foreground so the browser does not throttle the frame rate.</p>
+
+  <h2>Your files never leave your device</h2>
+  <p>Size Converter is a static page. Images are decoded with <code>createImageBitmap</code>, drawn to a canvas and encoded back by your browser; videos are played by a hidden <code>&lt;video&gt;</code> element, redrawn frame by frame and recorded with <code>MediaRecorder</code>. There is no upload endpoint, no account and nothing to delete afterwards. Re-encoding through the canvas also strips EXIF metadata such as GPS coordinates and camera serial numbers from photos. Your size, fit and format settings are kept in <code>localStorage</code> so the tool opens the way you left it.</p>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq">
+    <details><summary>How do I resize an image to a specific size in pixels?</summary><p>Drop the image, choose "Exact" under Output size and type the width and height, for example 800 × 600. With the aspect lock on, typing one side fills in the other so the picture is not distorted. If the target has a different shape than the original, pick a Fit mode: "Keep ratio" fits inside the box, "Crop to fill" trims the edges, "Stretch" forces the exact size and "Pad" adds a background. Then download the result.</p></details>
+    <details><summary>Does resizing reduce image quality?</summary><p>Downscaling keeps the image sharp when it is done well. Size Converter shrinks large images in steps (halving until close to the target) with high-quality resampling, which avoids the aliasing and jagged edges that a single-step resize produces. Upscaling cannot invent detail, so an enlarged image always looks softer; the Pro supersampling option renders at 2x and downsamples to make the result as clean as possible. Saving as PNG keeps every pixel; JPG and WebP use the quality slider (90 by default).</p></details>
+    <details><summary>Can I resize a video online without uploading it?</summary><p>Yes. Size Converter decodes the video with your browser's built-in player, draws every frame onto a canvas at the new size and records the result with the MediaRecorder API, copying the audio track. Nothing is sent to a server. The output is a WebM file (VP9 or VP8 with Opus audio). Free users can convert clips up to 30 seconds at up to 720p; Pro extends this to 5 minutes and 1080p or 4K.</p></details>
+    <details><summary>Why is the video output WebM and not MP4?</summary><p>Browsers can record video with MediaRecorder, but almost all of them only encode to WebM (VP8/VP9) – MP4/H.264 recording is not available in a plain web page without shipping a multi-megabyte encoder. WebM plays in Chrome, Edge, Firefox, Safari 16+, Android, VLC and uploads fine to YouTube, Instagram and most social networks. If a specific app insists on MP4, open the WebM in a free converter such as HandBrake or VLC (Media → Convert) and export to H.264.</p></details>
+    <details><summary>Which sizes do social networks use?</summary><p>The Preset menu includes the current standards: Instagram square 1080 × 1080, Instagram portrait 1080 × 1350, Stories and Reels 1080 × 1920, YouTube thumbnail 1280 × 720, X/Twitter header 1500 × 500 and LinkedIn banner 1584 × 396, plus web widths (1920, 1600, 1200, 800, 400), print sizes (A4 and Letter at 300 dpi) and avatar/favicon squares from 512 down to 32 pixels. Use "Crop to fill" with the anchor grid so the subject stays in frame when the ratio changes.</p></details>
+    <details><summary>Is Size Converter free and are my files private?</summary><p>Yes. Resizing images and short videos is free with no sign-up. Free exports carry a small "Size Converter · free" badge and "Download all" handles 10 files at a time. Files are processed entirely on your device with the Canvas and MediaRecorder APIs and never leave your computer; the tool keeps working offline once loaded. Size Converter Pro is a one-time purchase that removes the badge and unlocks unlimited batches with ZIP download, longer and larger videos, supersampled upscaling and saved size presets.</p></details>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand-mark lg" aria-hidden="true"></span>
+      <div>
+        <strong>Be Management Tools</strong>
+        <p>A collection of free, private tools that run entirely in your browser. Size Converter is the resize images & videos of the family, built and maintained by Be Management.</p>
+      </div>
+    </div>
+    <div class="footer-tools">
+      <strong>More free tools</strong>
+      <ul>
+        <li><a href="https://quickinvoice-tool.vercel.app">QuickInvoice · Invoices</a></li>
+        <li><a href="https://ratecalc-tool.vercel.app">RateCalc · Freelance rates</a></li>
+        <li><a href="https://qrforge-tool.vercel.app">QRForge · QR codes</a></li>
+        <li><a href="https://squish-tool.vercel.app">Squish · Image compressor</a></li>
+        <li><a href="https://growthcalc-tool.vercel.app">GrowthCalc · Compound interest</a></li>
+        <li><a href="https://subnetkit-tool.vercel.app">SubnetKit · IP subnets</a></li>
+        <li><a href="https://shotstudio-tool.vercel.app">Screenshot Studio · Screenshot mockups</a></li>
+        <li><a href="https://mockuplab-tool.vercel.app">Social Mockup Lab · Chat & post mockups</a></li>
+        <li><a href="https://carouselmaker-tool.vercel.app">Carousel Maker · Carousel slides</a></li>
+        <li><a href="https://creativeresize-tool.vercel.app">Creative Resize · Social formats</a></li>
+        <li><a href="https://framelab-tool.vercel.app">Frame Lab · Photo frames & mockups</a></li>
+        <li><a href="https://sizeconverter-tool.vercel.app" class="current">Size Converter · Image & video resizer</a></li>
+      </ul>
+    </div>
+    <div class="footer-meta">
+      <span>© <span data-year></span> Be Management · Size Converter. Free image and video resizer. Nothing is uploaded.</span>
+      <span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Pro modal -->
+<div class="modal" id="proModal" role="dialog" aria-modal="true">
+  <div class="card">
+    <button class="btn btn-sm close" onclick="closePro()">✕</button>
+    <h3>Upgrade to Size Converter Pro <span class="pro-badge">LIFETIME</span></h3>
+    <div class="price"><span id="proPrice"></span> <small>one-time</small></div>
+    <ul>
+      <li>No watermark</li>
+      <li>Unlimited batch + ZIP</li>
+      <li>Videos up to 5 min at 1080p/4K</li>
+      <li>Supersampled upscaling</li>
+      <li>Saved presets</li>
+      <li>Lifetime updates</li>
+    </ul>
+    <button class="btn btn-primary btn-block" onclick="goCheckout()">Get Pro</button>
+    <p class="hint" style="margin-top:12px">Already purchased? <a href="#" onclick="document.getElementById('licenseRow').classList.toggle('hidden');return false">Enter license key</a></p>
+    <div class="row hidden" id="licenseRow"><input id="licenseKey" placeholder="License key"><button class="btn" onclick="activateLicense(document.getElementById('licenseKey').value)">Activate</button></div>
+  </div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
