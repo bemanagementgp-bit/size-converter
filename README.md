@@ -2,7 +2,7 @@
 
 Resize images (PNG, JPG, WebP, GIF first frame, BMP, SVG) and short videos (MP4, WebM, MOV – whatever the browser decodes) to an exact pixel size, a percentage, a longest-side limit or a social/web/print/avatar preset. Keep ratio, crop to fill (9-point anchor), stretch or pad. Everything runs on a `<canvas>` (images) or `<video>` + `MediaRecorder` (videos) in the user's browser; nothing is uploaded.
 
-**Live:** https://__SITE_URL__/ (placeholder – replaced after deploy)
+**Live:** https://sizeconverter-tool.vercel.app/ (placeholder – replaced after deploy)
 
 ## Features
 
@@ -52,7 +52,7 @@ No build step. Open the printed URL. `window.SizeConverter` exposes `addFiles`, 
 Deploy the folder as a static site on Vercel (`vercel --prod`). After the first deploy, replace the placeholder everywhere:
 
 ```bash
-sed -i 's/__SITE_URL__/your-app.vercel.app/g' index.html privacy.html terms.html robots.txt sitemap.xml config.js README.md
+sed -i 's/sizeconverter-tool.vercel.app/your-app.vercel.app/g' index.html privacy.html terms.html robots.txt sitemap.xml config.js README.md
 ```
 
 Then run `node _shared/apply-brand.js size-converter` from the repo root to inject the shared header, hero, footer and lead card.
