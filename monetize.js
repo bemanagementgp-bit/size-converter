@@ -54,8 +54,18 @@
   const K = { flag: 'pro_license', key: 'pro_license_key', inst: 'pro_instance_id', at: 'pro_checked_at' };
   const LS_API = 'https://api.lemonsqueezy.com/v1/licenses/';
 
+  // Mercado Pago via the bm-payments service (preferred when PAYMENTS.url is set); Lemon Squeezy otherwise.
+  const PAY = Object.assign({ url: '', app: '' }, C.PAYMENTS || {});
+  const mpMode = () => !!(PAY.url && PAY.app);
+  async function payApi(path, opts) {
+    const r = await fetch(PAY.url.replace(/\/$/, '') + path, Object.assign({ headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } }, opts || {}));
+    let data = {}; try { data = await r.json(); } catch (e) {}
+    if (!r.ok && !data.error) data.error = 'Request failed (' + r.status + ')';
+    return data;
+  }
+
   window.isPro = function () { return localStorage.getItem(K.flag) === '1'; };
-  function licenseConfigured() { return !!(LIC.product_id || LIC.store_id || LIC.variant_id); }
+  function licenseConfigured() { return mpMode() || !!(LIC.product_id || LIC.store_id || LIC.variant_id); }
   function setPro(on, key, instanceId) {
     if (on) {
       localStorage.setItem(K.flag, '1');
@@ -101,6 +111,13 @@
     }
     if (!licenseConfigured()) { toast('License validation is not set up yet. Contact support.'); return false; }
     toast('Checking license…');
+    if (mpMode()) {
+      try {
+        const res = await payApi('/api/validate', { method: 'POST', body: JSON.stringify({ key, app: PAY.app }) });
+        if (res.valid) { setPro(true, key, 'mp'); track('license_activated', { provider: 'mercadopago' }); toast('Pro activated 🎉'); closePro(); return true; }
+        toast(res.error || 'Invalid license key'); return false;
+      } catch (e) { toast('Network error while checking the license. Try again.'); return false; }
+    }
     try {
       const instanceName = (C.APP_NAME || 'app') + ' · ' + (navigator.userAgentData && navigator.userAgentData.platform || navigator.platform || 'web');
       const res = await lsPost('activate', { license_key: key, instance_name: instanceName });
@@ -122,7 +139,7 @@
 
   window.deactivateLicense = async function () {
     const key = localStorage.getItem(K.key), inst = localStorage.getItem(K.inst);
-    if (key && inst && inst !== 'test' && licenseConfigured()) {
+    if (key && inst && inst !== 'test' && inst !== 'mp' && licenseConfigured()) {
       try { await lsPost('deactivate', { license_key: key, instance_id: inst }); } catch (e) {}
     }
     setPro(false); toast('Pro deactivated on this device');
@@ -134,6 +151,14 @@
     if (!key || inst === 'test' || !licenseConfigured()) return;
     const at = Number(localStorage.getItem(K.at) || 0);
     if (Date.now() - at < (LIC.recheck_days || 7) * 864e5) return;
+    if (mpMode()) {
+      try {
+        const res = await payApi('/api/validate', { method: 'POST', body: JSON.stringify({ key, app: PAY.app }) });
+        if (res.valid === true) localStorage.setItem(K.at, String(Date.now()));
+        else if (res.valid === false) { setPro(false); toast('Your Pro license is no longer valid.'); }
+      } catch (e) { /* offline */ }
+      return;
+    }
     try {
       const res = await lsPost('validate', { license_key: key, instance_id: inst || '' });
       if (res.valid === true && matchesProduct(res.meta)) { localStorage.setItem(K.at, String(Date.now())); }
@@ -159,11 +184,92 @@
     if (C.PRO_CHECKOUT_URL) window.open(C.PRO_CHECKOUT_URL, '_blank');
   };
   window.closePro = function () { const m = document.getElementById('proModal'); if (m) m.classList.remove('open'); };
+  // ---- Checkout (Mercado Pago through bm-payments, or a hosted checkout link) ----
+  const returnUrl = () => location.origin + location.pathname;
+  async function startMpCheckout(plan) {
+    toast('Opening Mercado Pago…');
+    try {
+      const res = await payApi('/api/checkout', { method: 'POST', body: JSON.stringify({ app: PAY.app, plan: plan || 'pro', return_url: returnUrl() }) });
+      if (res.init_point) { location.href = res.init_point; return true; }
+      toast(res.error || 'Could not start the checkout'); return false;
+    } catch (e) { toast('Network error starting the checkout'); return false; }
+  }
   window.goCheckout = function () {
-    track('begin_checkout', {});
+    track('begin_checkout', { plan: 'pro' });
+    if (mpMode()) return startMpCheckout('pro');
     if (C.PRO_CHECKOUT_URL) window.open(C.PRO_CHECKOUT_URL, '_blank');
-    else toast('Checkout is not available yet. Set PRO_CHECKOUT_URL in config.js');
+    else toast('Checkout is not available yet. Set PAYMENTS.url or PRO_CHECKOUT_URL in config.js');
   };
+  window.goBundle = function () { track('begin_checkout', { plan: 'bundle' }); if (mpMode()) return startMpCheckout('bundle'); toast('Bundle checkout not configured'); };
+  window.goSubscribe = async function (email) {
+    email = (email || '').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { toast('Enter the e-mail for your subscription'); return false; }
+    track('begin_checkout', { plan: 'subscription' });
+    if (!mpMode()) { toast('Subscriptions not configured'); return false; }
+    toast('Opening Mercado Pago…');
+    try {
+      const res = await payApi('/api/subscribe', { method: 'POST', body: JSON.stringify({ email, return_url: returnUrl() }) });
+      if (res.init_point) { location.href = res.init_point; return true; }
+      toast(res.error || 'Could not start the subscription'); return false;
+    } catch (e) { toast('Network error starting the subscription'); return false; }
+  };
+  // Back from Mercado Pago: ?mp=success&payment_id=… (Checkout Pro) or ?mp=subscription&preapproval_id=…
+  async function handlePaymentReturn() {
+    if (!mpMode()) return;
+    const q = new URLSearchParams(location.search);
+    const mp = q.get('mp'); if (!mp) return;
+    const clean = () => { try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {} };
+    if (mp === 'success' && (q.get('payment_id') || q.get('external_reference'))) {
+      toast('Confirming your payment…');
+      try {
+        const qs = q.get('payment_id') ? 'payment_id=' + encodeURIComponent(q.get('payment_id')) : 'external_reference=' + encodeURIComponent(q.get('external_reference'));
+        const res = await payApi('/api/license?' + qs);
+        if (res.key) { setPro(true, res.key, 'mp'); track('purchase', { provider: 'mercadopago', app: res.app }); showKeyModal(res); }
+        else toast(res.error || 'Payment not confirmed yet. Check your e-mail or contact support.');
+      } catch (e) { toast('Could not confirm the payment. Try again in a minute.'); }
+    } else if (mp === 'subscription' && q.get('preapproval_id')) {
+      toast('Confirming your subscription…');
+      try {
+        const res = await payApi('/api/subscription?preapproval_id=' + encodeURIComponent(q.get('preapproval_id')));
+        if (res.key) { setPro(true, res.key, 'mp'); track('purchase', { provider: 'mercadopago', plan: 'subscription' }); showKeyModal(Object.assign({ title: 'Creative Pro subscription' }, res)); }
+        else toast('Subscription is ' + (res.status || 'pending') + '. It will activate once authorized.');
+      } catch (e) { toast('Could not confirm the subscription yet.'); }
+    } else if (mp === 'pending') toast('Payment pending. Pro unlocks as soon as it is approved.');
+    else if (mp === 'failure') toast('Payment was not completed.');
+    clean();
+  }
+  function showKeyModal(res) {
+    const m = document.getElementById('proModal'); if (!m) { toast('Pro activated 🎉'); return; }
+    const card = m.querySelector('.card');
+    card.innerHTML = `<button class="btn btn-sm close" onclick="closePro()">✕</button>
+      <h3>You're Pro 🎉</h3>
+      <p>${res.title ? 'Thanks for buying <strong>' + res.title + '</strong>.' : 'Thanks for your purchase.'} Pro is now active on this device.</p>
+      <p class="hint">Your license key (save it to activate on other devices${res.emailed ? '; we also e-mailed it to ' + res.email : ''}):</p>
+      <p style="font-family:var(--mono);font-size:1rem;background:var(--surface);padding:12px 14px;border-radius:12px;word-break:break-all;user-select:all">${res.key}</p>
+      <button class="btn btn-primary btn-block" onclick="navigator.clipboard&&navigator.clipboard.writeText('${res.key}').then(()=>toast('Key copied'));">Copy key</button>`;
+    m.classList.add('open');
+  }
+  // Prices + extra purchase options in the Pro modal, from the catalog
+  async function mountCatalog() {
+    if (!mpMode()) return;
+    try {
+      const cat = await payApi('/api/catalog?app=' + encodeURIComponent(PAY.app));
+      if (cat.app && cat.app.display) {
+        document.querySelectorAll('#proPrice,[data-pro-price]').forEach(el => el.textContent = cat.app.display);
+      }
+      const buy = document.querySelector('#proModal button[onclick="goCheckout()"]');
+      if (buy && !document.getElementById('bundleBtn')) {
+        buy.insertAdjacentHTML('afterend', `
+          <button class="btn btn-block" id="bundleBtn" onclick="goBundle()" style="margin-top:8px">All 12 tools · ${cat.bundle.display} once</button>
+          <form class="lead-form" style="margin-top:8px" onsubmit="goSubscribe(this.email.value);return false;" title="Creative Pro: every tool while subscribed">
+            <input type="email" name="email" placeholder="you@email.com" aria-label="E-mail for subscription" required>
+            <button class="btn" type="submit">Subscribe ${cat.subscription.display}</button>
+          </form>
+          <p class="hint tiny">Pay with Mercado Pago · card, debit, account balance. Lifetime keys never expire.</p>`);
+      }
+      if (!cat.configured) console.warn('bm-payments: MP_ACCESS_TOKEN not configured yet');
+    } catch (e) { /* catalog unavailable: keep static price */ }
+  }
 
   // ---- Newsletter / lead capture ----
   const NL = Object.assign({ url: '', field: 'email' }, C.NEWSLETTER || {});
@@ -190,7 +296,7 @@
   };
 
   document.addEventListener('DOMContentLoaded', () => {
-    mountAds(); mountLead(); renderProStatus(); recheckLicense();
+    mountAds(); mountLead(); renderProStatus(); recheckLicense(); mountCatalog(); handlePaymentReturn();
     document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
     document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) closePro(); }));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closePro(); });

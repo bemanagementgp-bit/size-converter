@@ -17,5 +17,9 @@ window.APP_CONFIG = {
     url: "",                           // e.g. "https://formspree.io/f/xxxx" or "https://app.convertkit.com/forms/123/subscriptions"
     field: "email"                     // input name the provider expects (ConvertKit: "email_address")
   },
+  PAYMENTS: {                          // Mercado Pago through the bm-payments service (takes precedence over LICENSE / PRO_CHECKOUT_URL)
+    url: "https://bm-payments.vercel.app",
+    app: "sizeconverter"   // catalog key in bm-payments/catalog.js
+  },
   AFFILIATE_LINKS: {}                  // app-specific affiliate CTAs
 };
