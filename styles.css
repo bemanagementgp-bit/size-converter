@@ -1,24 +1,36 @@
-/* ===== Be Management Tools – shared design system (v3 "Studio") =====
-   Apple-dark look: near-black canvas, floating pill nav, iOS-style controls, big tight headlines. */
+/* ===== Be Management Tools – shared design system (v4 "bemanagement.pro") =====
+   Same identity as https://www.bemanagement.pro: near-black canvas with warm/graphite glows and a dot grid,
+   Montserrat display headlines with an orange→red gradient keyword, "(01) — LABEL" eyebrows,
+   frosted-glass cards and pill navigation, solid orange pill CTAs. */
 :root{
-  --bg:#0f0f10;--bg2:#161617;--card:#1c1c1e;--surface:rgba(255,255,255,.05);--surface-2:rgba(255,255,255,.09);
-  --line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.16);
-  --text:#fafafa;--text-2:rgba(250,250,250,.82);--muted:#a1a1a6;
-  --accent:#f97316;--accent2:#fb923c;--accent-strong:#ea580c;--on-accent:#ffffff;
+  --bg:#050403;--bg2:#0d0a08;--card:rgba(40,40,45,.45);--solid:#15100d;--surface:rgba(255,255,255,.05);--surface-2:rgba(255,255,255,.09);
+  --line:rgba(235,235,245,.14);--line-strong:rgba(255,255,255,.22);
+  --text:#ffffff;--text-2:rgba(255,255,255,.8);--muted:rgba(255,255,255,.6);
+  --accent:#f47100;--accent2:#e07d34;--accent-strong:#d65c05;--accent-red:#ae050a;--on-accent:#ffffff;
+  --grad:linear-gradient(90deg,#f47100,#ae050a);
   --success:#34c759;--danger:#ff453a;--info:#0a84ff;
-  --radius:20px;--radius-sm:12px;--radius-ctl:10px;--pill:999px;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.6);
-  --glow:0 8px 24px -6px rgba(249,115,22,.55);
-  --font:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
+  --radius:28px;--radius-sm:16px;--radius-ctl:12px;--pill:9999px;
+  --glass-bg:rgba(40,40,45,.45);--glass-border:rgba(255,255,255,.12);--glass-highlight:rgba(255,255,255,.18);
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 20px 40px -12px rgba(0,0,0,.6);
+  --glow:0 10px 30px -8px rgba(244,113,0,.6);
+  --page-glow:radial-gradient(1200px 900px at 15% 10%,rgba(70,70,80,.55),transparent 60%),radial-gradient(1100px 800px at 85% 90%,rgba(60,60,70,.45),transparent 60%),radial-gradient(900px 700px at 50% 50%,rgba(90,90,100,.25),transparent 65%);
+  --hero-glow:radial-gradient(600px 420px at 70% 30%,rgba(244,113,0,.38),rgba(174,5,10,.18) 45%,transparent 70%);
+  --dots:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.2px) 0 0/22px 22px;
+  --font:"Inter",-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,sans-serif;
+  --display:"Montserrat","Inter",ui-sans-serif,system-ui,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --checker:repeating-conic-gradient(rgba(255,255,255,.06) 0 25%,transparent 0 50%) 0 0/20px 20px;
 }
 :root[data-theme="light"]{
-  --bg:#f5f5f7;--bg2:#ffffff;--card:#ffffff;--surface:rgba(0,0,0,.04);--surface-2:rgba(0,0,0,.08);
-  --line:rgba(0,0,0,.08);--line-strong:rgba(0,0,0,.16);
-  --text:#1d1d1f;--text-2:rgba(0,0,0,.72);--muted:#86868b;
-  --accent:#f97316;--accent2:#fb923c;--accent-strong:#ea580c;
-  --shadow:0 1px 2px rgba(15,23,42,.04),0 8px 28px rgba(15,23,42,.06);
+  --bg:#ffffff;--bg2:#f6f6f9;--card:rgba(255,255,255,.55);--solid:#ffffff;--surface:rgba(0,0,0,.04);--surface-2:rgba(0,0,0,.08);
+  --line:rgba(60,60,67,.18);--line-strong:rgba(0,0,0,.2);
+  --text:#000000;--text-2:rgba(0,0,0,.72);--muted:rgba(0,0,0,.55);
+  --accent:#d65c05;--accent2:#f47100;--accent-strong:#b84d03;
+  --glass-bg:rgba(255,255,255,.45);--glass-border:rgba(0,0,0,.07);--glass-highlight:rgba(255,255,255,.9);
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px -8px rgba(0,0,0,.12);
+  --page-glow:radial-gradient(140% 100% at 50% -25%,#fff 0%,rgba(255,255,255,0) 62%),radial-gradient(75% 55% at 6% 102%,rgba(120,120,128,.26),transparent 72%),radial-gradient(75% 55% at 94% 102%,rgba(120,120,128,.2),transparent 72%),linear-gradient(180deg,#fff 0%,#fff 34%,#f6f6f9 68%,#dedee6 100%);
+  --hero-glow:radial-gradient(600px 420px at 70% 30%,rgba(244,113,0,.2),rgba(174,5,10,.08) 45%,transparent 70%);
+  --dots:radial-gradient(rgba(0,0,0,.08) 1px,transparent 1.2px) 0 0/22px 22px;
   --checker:repeating-conic-gradient(rgba(0,0,0,.07) 0 25%,transparent 0 50%) 0 0/20px 20px;
 }
 *{box-sizing:border-box}
@@ -239,10 +251,85 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .breadcrumb{font-size:.85rem;color:var(--muted);margin:0 0 12px}
 .breadcrumb a{color:var(--muted)}
 .content .back-guide{margin-top:28px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+/* ================= v4 identity layer (bemanagement.pro) ================= */
+html{background:var(--bg)}
+body{background:var(--page-glow),var(--bg);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:var(--dots);pointer-events:none;z-index:-1;mask-image:radial-gradient(120% 90% at 50% 0%,#000 40%,transparent 85%);-webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000 40%,transparent 85%)}
+::selection{background:rgba(214,92,5,.4)}
+h1,h2,h3,.price,.result-big,.brand-name{font-family:var(--display)}
+h1,h2{letter-spacing:-.045em;font-weight:700}
+/* hero: big Montserrat, gradient keyword, warm glow behind */
+.hero{position:relative;padding:72px 0 28px;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:-80px -10% auto -10%;height:560px;background:var(--hero-glow);filter:blur(10px);z-index:-1;pointer-events:none}
+.hero h1{font-size:clamp(2.6rem,7vw,5.4rem);line-height:.95;letter-spacing:-.055em;font-weight:600}
+.hero h1 .hl,.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 .dot-end{color:var(--accent)}
+.hero .tagline{color:var(--text-2);font-family:var(--font);letter-spacing:-.01em}
+/* "(01) — LABEL" eyebrows */
+.eyebrow{background:none;border:0;padding:0;color:var(--muted);font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;gap:10px}
+.eyebrow .dot{display:none}
+.eyebrow::before{content:"(01) —";color:var(--accent);letter-spacing:.08em}
+.section-label,.panel>summary{letter-spacing:.2em;font-weight:500}
+.content h2{font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.045em}
+/* frosted glass surfaces */
+.card,.panel,.feature,.faq details,.uses-grid a,.navbar,.studio-actions,.more-tools .menu,.modal .card,.toast{background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);box-shadow:inset 0 1px 0 var(--glass-highlight),var(--shadow)}
+.card,.panel,.feature{border-radius:var(--radius)}
+.modal .card{background:color-mix(in srgb,var(--solid) 88%,transparent)}
+.stat,input,select,textarea,.seg,.badge,.chip,.tile{background:rgba(255,255,255,.04)}
+:root[data-theme="light"] .stat,:root[data-theme="light"] input,:root[data-theme="light"] select,:root[data-theme="light"] textarea,:root[data-theme="light"] .seg,:root[data-theme="light"] .badge,:root[data-theme="light"] .chip,:root[data-theme="light"] .tile{background:rgba(255,255,255,.7)}
+/* pill nav like bemanagement.pro: glass bar, white active pill */
+.navbar{padding:6px;gap:4px}
+.navbar .btn-ghost[aria-current="page"],.nav .active{background:#fff;color:#000}
+/* buttons */
+.btn{border-radius:var(--pill);letter-spacing:-.01em}
+.btn-primary{background:var(--accent);border-color:transparent;color:#fff;box-shadow:var(--glow)}
+.btn-primary:hover{background:var(--accent-strong)}
+.btn-primary::after{content:"↗";font-weight:600;margin-left:2px;opacity:.9}
+.btn-primary.no-arrow::after,.icon-btn::after,.btn-sm.btn-primary::after{content:none}
+.btn:not(.btn-primary):not(.btn-ghost){background:var(--glass-bg);border-color:var(--glass-border)}
+.pro-badge{background:var(--grad)}
+.pro-card{background:radial-gradient(120% 120% at 100% 0%,rgba(244,113,0,.28),transparent 55%),var(--glass-bg);border-color:rgba(244,113,0,.35)}
+.result-big{background:var(--grad);-webkit-background-clip:text;background-clip:text}
+.brand-mark{background:#0b0b0c;box-shadow:inset 0 0 0 1px var(--glass-border),0 6px 18px -6px rgba(244,113,0,.6)}
+:root[data-theme="light"] .brand-mark{background:#000}
+.site-footer{background:transparent;border-top:1px solid var(--line)}
+/* language switcher (ES | EN like bemanagement.pro) */
+.lang-switch{display:inline-flex;align-items:center;padding:3px;border-radius:var(--pill);background:rgba(255,255,255,.06);border:1px solid var(--glass-border)}
+.lang-switch select{appearance:none;-webkit-appearance:none;border:0;background:transparent;height:26px;padding:0 10px;font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--text);cursor:pointer;background-image:none}
+.lang-switch select:focus{box-shadow:none}
+@media(max-width:520px){
+  .navbar{gap:2px;padding:5px}
+  .nav{gap:2px}
+  .nav .icon-btn{display:none}                 /* theme follows the system on phones */
+  .brand{padding-right:4px}
+  .brand-name{max-width:132px;font-size:.88rem}
+  .more-tools summary{padding:0 10px;font-size:.78rem}
+  .more-tools .mt-label{display:none}
+  .more-tools summary::before{content:"☰";font-size:.95rem}
+  .brand-name{max-width:150px}
+  .lang-switch{padding:2px}
+  .lang-switch select{min-width:38px;padding:0 6px;text-align:center}
+  .navbar .btn-sm{height:30px;padding:0 10px}
+}
+/* consent + geolocation prompts */
+.consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:250;max-width:560px;margin:0 auto;padding:18px 20px;border-radius:24px;background:color-mix(in srgb,var(--solid) 92%,transparent);border:1px solid var(--glass-border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:var(--shadow);font-size:.9rem}
+.consent h4{margin:0 0 6px;font-family:var(--display);font-size:1rem;letter-spacing:-.02em}
+.consent p{margin:0 0 12px;color:var(--text-2)}
+.consent .row{gap:8px}
+.consent .prefs{display:grid;gap:8px;margin:0 0 12px}
+.consent .prefs label{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--text);font-weight:500;margin:0}
+.consent .prefs small{display:block;color:var(--muted);font-weight:400}
+.geo-ask{position:fixed;right:16px;bottom:16px;z-index:240;max-width:340px;padding:16px;border-radius:22px;background:color-mix(in srgb,var(--solid) 92%,transparent);border:1px solid var(--glass-border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:var(--shadow);font-size:.88rem}
+.geo-ask p{margin:4px 0 12px;color:var(--text-2)}
+@media(max-width:640px){.geo-ask{left:16px;max-width:none}}
 /* scrollbars */
 *{scrollbar-width:thin;scrollbar-color:rgba(127,127,127,.35) transparent}
 @media print{.site-header,.sidebar,.site-footer,.content,.no-print,.toast,.modal,.hero,.ad-slot,.uses,.studio-actions,.studio-panel{display:none!important}body{background:#fff;color:#000}}
 /* ===== end shared base ===== */
+
+
+
+
 
 
 

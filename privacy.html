@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f97316">
+  <meta name="theme-color" content="#050403">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,10 +17,22 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <script src="/config.js"></script>
+  <script src="/i18n.js"></script>
+  <script src="/consent.js"></script>
   <script src="/monetize.js"></script>
+  <!-- hreflang:start -->
+  <meta name="bm-langs" content="en,es,pt,fr,de,it">
+  <link rel="alternate" hreflang="en" href="https://sizeconverter-tool.vercel.app/privacy">
+  <link rel="alternate" hreflang="es" href="https://sizeconverter-tool.vercel.app/es/privacy">
+  <link rel="alternate" hreflang="pt" href="https://sizeconverter-tool.vercel.app/pt/privacy">
+  <link rel="alternate" hreflang="fr" href="https://sizeconverter-tool.vercel.app/fr/privacy">
+  <link rel="alternate" hreflang="de" href="https://sizeconverter-tool.vercel.app/de/privacy">
+  <link rel="alternate" hreflang="it" href="https://sizeconverter-tool.vercel.app/it/privacy">
+  <link rel="alternate" hreflang="x-default" href="https://sizeconverter-tool.vercel.app/privacy">
+  <!-- hreflang:end -->
 </head>
 <body>
 <header class="site-header">
@@ -32,7 +44,7 @@
     </a>
     <nav class="nav" aria-label="Main">
       <details class="more-tools">
-        <summary class="btn btn-ghost btn-sm">More tools ▾</summary>
+        <summary class="btn btn-ghost btn-sm" aria-label="More tools"><span class="mt-label">More tools</span> ▾</summary>
         <div class="menu">
           <a href="https://quickinvoice-tool.vercel.app"><span class="mi">Q</span>QuickInvoice<small>Invoices</small></a>
           <a href="https://ratecalc-tool.vercel.app"><span class="mi">R</span>RateCalc<small>Freelance rates</small></a>
@@ -46,13 +58,15 @@
           <a href="https://creativeresize-tool.vercel.app"><span class="mi">R</span>Creative Resize<small>Social formats</small></a>
           <a href="https://framelab-tool.vercel.app"><span class="mi">F</span>Frame Lab<small>Photo frames & mockups</small></a>
           <a href="https://giveaway-tool.vercel.app"><span class="mi">G</span>Giveaway Picker<small>Instagram giveaways</small></a>
+          <a href="https://iplookup-tool.vercel.app"><span class="mi">I</span>IP Lookup<small>IP lookup</small></a>
           <a href="https://sizeconverter-tool.vercel.app" class="current"><span class="mi">Z</span>Size Converter<small>Image & video resizer</small></a>
         </div>
       </details>
       <span class="sep" aria-hidden="true"></span>
       <span class="brand-by">by <b>Be Management</b></span>
-      <button class="btn btn-sm hidden" id="installBtn" onclick="installApp()" title="Install this tool as an app">⤓ Install</button>
-      <a class="btn btn-sm" href="/">← Back to tool</a><button class="btn icon-btn btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+      <button class="btn btn-sm hidden" id="installBtn" data-action="install" title="Install this tool as an app">⤓ Install</button>
+      <span class="lang-switch"><select id="langSelect" aria-label="Language" translate="no"><option value="en">EN</option></select></span>
+      <a class="btn btn-sm" href="/">← Back to tool</a><button class="btn icon-btn btn-sm" data-action="theme" aria-label="Toggle theme">◐</button>
     </nav>
     </div>
   </div>
@@ -114,12 +128,13 @@
         <li><a href="https://creativeresize-tool.vercel.app">Creative Resize · Social formats</a></li>
         <li><a href="https://framelab-tool.vercel.app">Frame Lab · Photo frames & mockups</a></li>
         <li><a href="https://giveaway-tool.vercel.app">Giveaway Picker · Instagram giveaways</a></li>
+        <li><a href="https://iplookup-tool.vercel.app">IP Lookup · IP lookup</a></li>
         <li><a href="https://sizeconverter-tool.vercel.app" class="current">Size Converter · Image & video resizer</a></li>
       </ul>
     </div>
     <div class="footer-meta">
       <span>© <span data-year></span> Be Management · Size Converter. Free image and video resizer. Nothing is uploaded.</span>
-      <span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span>
+      <span><a href="/privacy" data-i18n-href="/privacy">Privacy</a> · <a href="/terms" data-i18n-href="/terms">Terms</a> · <a href="#" data-action="cookie-settings">Cookie settings</a> · <a href="https://www.bemanagement.pro" rel="noopener">bemanagement.pro</a></span>
     </div>
   </div>
 </footer>

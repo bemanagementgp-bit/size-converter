@@ -114,7 +114,19 @@
   S.debounce = function (fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms || 120); }; };
   S.raf = function (fn) { let p = false; return () => { if (p) return; p = true; requestAnimationFrame(() => { p = false; fn(); }); }; };
   S.persist = function (key, state) { try { localStorage.setItem(key, JSON.stringify(state)); } catch (e) {} };
-  S.restore = function (key, fallback) { try { return Object.assign({}, fallback, JSON.parse(localStorage.getItem(key) || '{}')); } catch (e) { return Object.assign({}, fallback); } };
+  // Prototype-pollution-safe JSON parse: drops __proto__ / constructor / prototype keys at any depth.
+  S.safeParse = function (text, fallback) {
+    try { return JSON.parse(text, (k, v) => (k === '__proto__' || k === 'constructor' || k === 'prototype') ? undefined : v); }
+    catch (e) { return fallback; }
+  };
+  S.safeAssign = function (target, ...sources) {
+    for (const src of sources) if (src && typeof src === 'object') for (const k of Object.keys(src)) { if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue; target[k] = src[k]; }
+    return target;
+  };
+  S.restore = function (key, fallback) {
+    const saved = S.safeParse(localStorage.getItem(key) || '{}', {});
+    return S.safeAssign({}, fallback, saved && typeof saved === 'object' && !Array.isArray(saved) ? saved : {});
+  };
   // Pro gate helper: returns true if allowed, else opens the Pro modal
   S.gate = function (feature) { if (window.isPro && isPro()) return true; openPro(feature); return false; };
 

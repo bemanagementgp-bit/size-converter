@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ridimensiona immagini o video a una dimensione esatta – Pixel, percentuale o preset (gratis) | Size Converter</title>
+  <meta name="description" content="Ridimensiona gratis online immagini e brevi video a una dimensione precisa. Pixel esatti, percentuale, lato più lungo o preset per i social, con ritaglio, riempimento o allungamento. Funziona nel tuo browser, non viene caricato nulla.">
+  <link rel="canonical" href="https://sizeconverter-tool.vercel.app/it/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sizeconverter-tool.vercel.app/it/">
+  <meta property="og:title" content="Ridimensiona immagini o video a una dimensione esatta – Pixel, percentuale o preset (gratis) | Size Converter">
+  <meta property="og:description" content="Ridimensionatore di immagini e video gratuito nel browser. Imposta pixel esatti, una percentuale, il lato più lungo o un preset per i social; mantieni le proporzioni, ritaglia per riempire, allunga o riempi con sfondo. Nessun caricamento.">
+  <meta property="og:image" content="https://sizeconverter-tool.vercel.app/favicon.svg">
+  <meta property="og:site_name" content="Size Converter">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ridimensiona immagini o video a una dimensione esatta – Strumento online gratuito">
+  <meta name="twitter:description" content="Ridimensiona immagini e brevi video a pixel esatti, percentuale o preset nel tuo browser. Ritaglia, riempi o allunga. Non viene caricato nulla.">
+  <meta name="twitter:image" content="https://sizeconverter-tool.vercel.app/favicon.svg">
+  <meta name="theme-color" content="#050403">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Size Converter">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Size Converter – Ridimensiona immagini e video a qualsiasi dimensione","url":"https://sizeconverter-tool.vercel.app/","applicationCategory":"MultimediaApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript","description":"Ridimensiona immagini e brevi video a una dimensione esatta in pixel, a una percentuale, a un limite sul lato più lungo o a un preset per i social. Mantieni le proporzioni, ritaglia per riempire, allunga o riempi con sfondo. Tutto viene elaborato in locale nel tuo browser e non viene mai caricato.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Ridimensiona a pixel esatti, percentuale, lato più lungo o preset","Mantieni proporzioni, ritaglia per riempire con ancoraggio, allunga o riempi con un colore","Ridimensiona in batch PNG, JPG, WebP, GIF, BMP e SVG","Ridimensiona video MP4, WebM e MOV in WebM nel browser","Converti tra JPG, PNG e WebP con un cursore di qualità","100% privato: non viene caricato nulla"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Come ridimensiono un'immagine a una dimensione precisa in pixel?","acceptedAnswer":{"@type":"Answer","text":"Trascina l'immagine, scegli 'Esatta' in Dimensione di output e scrivi larghezza e altezza, per esempio 800 × 600. Con il blocco delle proporzioni attivo, scrivendo un lato l'altro si compila da solo così l'immagine non si deforma. Se la destinazione ha una forma diversa dall'originale, scegli una modalità di adattamento: 'Mantieni proporzioni' la fa stare dentro il riquadro, 'Ritaglia per riempire' taglia i bordi, 'Allunga' forza la dimensione esatta e 'Riempi con sfondo' aggiunge uno sfondo. Poi scarica il risultato."}},{"@type":"Question","name":"Ridimensionare riduce la qualità dell'immagine?","acceptedAnswer":{"@type":"Answer","text":"Ridurre un'immagine la mantiene nitida se fatto bene. Size Converter riduce le immagini grandi per gradi (dimezzandole finché non si avvicinano alla destinazione) con un ricampionamento di alta qualità, evitando l'aliasing e i bordi seghettati che produce un ridimensionamento in un solo passaggio. L'ingrandimento non può inventare dettagli, quindi un'immagine ingrandita appare sempre più morbida; l'opzione Pro di supersampling genera a 2x e poi riduce per rendere il risultato il più pulito possibile. Salvare in PNG conserva ogni pixel; JPG e WebP usano il cursore della qualità (90 di default)."}},{"@type":"Question","name":"Posso ridimensionare un video online senza caricarlo?","acceptedAnswer":{"@type":"Answer","text":"Sì. Size Converter decodifica il video con il player integrato del browser, disegna ogni fotogramma su una canvas alla nuova dimensione e registra il risultato con la MediaRecorder API, copiando la traccia audio. Nulla viene inviato a un server. L'output è un file WebM (VP9 o VP8 con audio Opus). Gli utenti gratuiti possono convertire clip fino a 30 secondi e fino a 720p; Pro estende il limite a 5 minuti e a 1080p o 4K."}},{"@type":"Question","name":"Perché l'output video è WebM e non MP4?","acceptedAnswer":{"@type":"Answer","text":"I browser possono registrare video con MediaRecorder, ma quasi tutti codificano solo in WebM (VP8/VP9): la registrazione in MP4/H.264 non è disponibile in una semplice pagina web senza includere un codificatore di diversi megabyte. WebM si riproduce in Chrome, Edge, Firefox, Safari 16+, Android, VLC e si carica senza problemi su YouTube, Instagram e la maggior parte dei social network. Se un'app richiede proprio MP4, apri il WebM in un convertitore gratuito come HandBrake o VLC (Media → Converti) ed esporta in H.264."}},{"@type":"Question","name":"Quali dimensioni usano i social network?","acceptedAnswer":{"@type":"Answer","text":"Il menu Preset include gli standard attuali: Instagram quadrato 1080 × 1080, Instagram verticale 1080 × 1350, Storie e Reel 1080 × 1920, miniatura YouTube 1280 × 720, intestazione X/Twitter 1500 × 500 e banner LinkedIn 1584 × 396, più larghezze web (1920, 1600, 1200, 800, 400), formati di stampa (A4 e Letter a 300 dpi) e quadrati per avatar/favicon da 512 fino a 32 pixel. Usa 'Ritaglia per riempire' con la griglia di ancoraggio così il soggetto resta nell'inquadratura quando cambia il rapporto."}},{"@type":"Question","name":"Size Converter è gratis e i miei file sono privati?","acceptedAnswer":{"@type":"Answer","text":"Sì. Ridimensionare immagini e brevi video è gratis senza registrazione. Le esportazioni gratuite riportano un piccolo badge 'Size Converter · free' e 'Scarica tutto' gestisce 10 file alla volta. I file vengono elaborati interamente sul tuo dispositivo con le API Canvas e MediaRecorder e non lasciano mai il computer; lo strumento continua a funzionare offline una volta caricato. Size Converter Pro è un acquisto una tantum che rimuove il badge e sblocca batch illimitati con download ZIP, video più lunghi e più grandi, ingrandimento con supersampling e preset di dimensione salvati."}}]}</script>
+  <script src="/config.js"></script>
+  <script src="/i18n.js"></script>
+  <script src="/consent.js"></script>
+  <script src="/monetize.js"></script>
+  <script src="/studio.js"></script>
+  <!-- hreflang:start -->
+  <meta name="bm-langs" content="en,es,pt,fr,de,it">
+  <link rel="alternate" hreflang="en" href="https://sizeconverter-tool.vercel.app/">
+  <link rel="alternate" hreflang="es" href="https://sizeconverter-tool.vercel.app/es/">
+  <link rel="alternate" hreflang="pt" href="https://sizeconverter-tool.vercel.app/pt/">
+  <link rel="alternate" hreflang="fr" href="https://sizeconverter-tool.vercel.app/fr/">
+  <link rel="alternate" hreflang="de" href="https://sizeconverter-tool.vercel.app/de/">
+  <link rel="alternate" hreflang="it" href="https://sizeconverter-tool.vercel.app/it/">
+  <link rel="alternate" hreflang="x-default" href="https://sizeconverter-tool.vercel.app/">
+  <!-- hreflang:end -->
+  <meta property="og:locale" content="it_IT">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+    <a class="brand" href="/it/" aria-label="Home di Size Converter">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text"><span class="brand-name">Size Converter</span><span class="brand-desc">Ridimensiona immagini e video</span></span>
+    </a>
+    <nav class="nav" aria-label="Principale">
+      <details class="more-tools">
+        <summary class="btn btn-ghost btn-sm" aria-label="Altri strumenti"><span class="mt-label">Altri strumenti</span> ▾</summary>
+        <div class="menu">
+          <a href="https://quickinvoice-tool.vercel.app"><span class="mi">Q</span>QuickInvoice<small>Fatture</small></a>
+          <a href="https://ratecalc-tool.vercel.app"><span class="mi">R</span>RateCalc<small>Tariffe freelance</small></a>
+          <a href="https://qrforge-tool.vercel.app"><span class="mi">Q</span>QRForge<small>Codici QR</small></a>
+          <a href="https://squish-tool.vercel.app"><span class="mi">S</span>Squish<small>Compressore di immagini</small></a>
+          <a href="https://growthcalc-tool.vercel.app"><span class="mi">G</span>GrowthCalc<small>Interesse composto</small></a>
+          <a href="https://subnetkit-tool.vercel.app"><span class="mi">N</span>SubnetKit<small>Subnet IP</small></a>
+          <a href="https://shotstudio-tool.vercel.app"><span class="mi">S</span>Screenshot Studio<small>Mockup di screenshot</small></a>
+          <a href="https://mockuplab-tool.vercel.app"><span class="mi">M</span>Social Mockup Lab<small>Mockup di chat e post</small></a>
+          <a href="https://carouselmaker-tool.vercel.app"><span class="mi">C</span>Carousel Maker<small>Slide per caroselli</small></a>
+          <a href="https://creativeresize-tool.vercel.app"><span class="mi">R</span>Creative Resize<small>Formati social</small></a>
+          <a href="https://framelab-tool.vercel.app"><span class="mi">F</span>Frame Lab<small>Cornici e mockup per foto</small></a>
+          <a href="https://giveaway-tool.vercel.app"><span class="mi">G</span>Giveaway Picker<small>Giveaway su Instagram</small></a>
+          <a href="https://iplookup-tool.vercel.app"><span class="mi">I</span>IP Lookup<small>Ricerca IP</small></a>
+          <a href="https://sizeconverter-tool.vercel.app" class="current"><span class="mi">Z</span>Size Converter<small>Ridimensiona immagini e video</small></a>
+        </div>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="brand-by">di <b>Be Management</b></span>
+      <button class="btn btn-sm hidden" id="installBtn" data-action="install" title="Installa questo strumento come app">⤓ Installa</button>
+      <span class="lang-switch"><select id="langSelect" aria-label="Language" translate="no"><option value="en">EN</option></select></span>
+      <button class="btn btn-primary btn-sm" data-action="pro" data-arg="nav">Pro</button><button class="btn icon-btn btn-sm" data-action="theme" aria-label="Cambia tema">◐</button>
+    </nav>
+    </div>
+  </div>
+</header>
+
+<section class="hero container">
+  <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Be Management Tools · Creatività · Ridimensionamento</span>
+  <h1>Ridimensiona immagini e video a qualsiasi dimensione</h1>
+  <p class="tagline">Imposta pixel esatti, una percentuale o un preset e ridimensiona immagini o brevi video direttamente nel tuo browser. Mantieni le proporzioni o ritaglia per adattare.</p>
+  <div class="badges">
+  <span class="badge">100% gratis</span>
+  <span class="badge">Nessuna registrazione</span>
+  <span class="badge">Funziona nel tuo browser</span>
+  <span class="badge">Nessun caricamento</span>
+  <span class="badge">Immagini e video</span>
+  </div>
+</section>
+
+<main class="container">
+  <div class="studio">
+    <div class="studio-stage">
+      <div class="studio-canvas" id="stage">
+        <canvas id="preview" aria-label="Anteprima in tempo reale dell'immagine ridimensionata"></canvas>
+        <div class="studio-drop" id="drop" tabindex="0" role="button" aria-label="Trascina immagini o video, oppure premi Enter per scegliere i file">
+          <div class="box"><div class="ic">⬆</div><b>Trascina immagini o video, oppure fai clic per caricarli</b><small>PNG, JPG, WebP, GIF, BMP, SVG · MP4, WebM, MOV · incolla con Ctrl+V · non viene caricato nulla</small>
+            <div class="drop-actions"><button type="button" class="btn btn-sm" id="sampleBtn">Prova un'immagine di esempio</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-meta">
+        <span id="stageInfo">Risultato: <b>—</b></span>
+        <span id="freeInfo">Gratis: piccolo badge sulle esportazioni · Scarica tutto 10 alla volta · video ≤ 30 s, 720p</span>
+      </div>
+
+      <div class="card list-card hidden" id="listCard">
+        <div class="row-between list-head">
+          <h2 class="card-title">File <span class="count-pill" id="countPill">0</span></h2>
+          <div class="row">
+            <button type="button" class="btn btn-sm" id="rerunBtn" title="Rielabora ogni file con le impostazioni attuali">↻ Rielabora tutto</button>
+            <button type="button" class="btn btn-sm btn-danger" id="clearBtn">Cancella tutto</button>
+          </div>
+        </div>
+        <div class="progress hidden" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <ul class="file-list" id="fileList" aria-live="polite"></ul>
+      </div>
+
+      <div class="studio-actions" role="toolbar" aria-label="Azioni di esportazione">
+        <button type="button" class="btn btn-primary" id="downloadAllBtn" disabled>⬇ Scarica tutto</button>
+        <button type="button" class="btn" id="zipBtn" disabled>Scarica ZIP <span class="pro-badge">PRO</span></button>
+        <span class="hint" id="downloadHint" style="margin:0">Trascina dei file per iniziare.</span>
+      </div>
+      <div class="ad-slot horizontal" data-slot="below-tool"></div>
+    </div>
+
+    <aside class="studio-panel">
+      <details class="panel" open>
+        <summary>Dimensione di output</summary>
+        <div class="panel-body">
+          <div class="seg" id="modeSeg" role="group" aria-label="Modalità di dimensione">
+            <button type="button" data-value="exact">Esatta</button>
+            <button type="button" data-value="percent">Percentuale</button>
+            <button type="button" data-value="longest">Lato lungo</button>
+            <button type="button" data-value="preset">Preset</button>
+          </div>
+
+          <div class="mode-row" id="exactRow">
+            <div class="dims">
+              <div class="field compact"><label for="wIn">Larghezza (px)</label><input type="number" id="wIn" min="1" max="16384" step="1" value="1080" inputmode="numeric"></div>
+              <button type="button" class="btn icon-btn btn-sm lock-btn active" id="lockBtn" aria-pressed="true" aria-label="Blocca le proporzioni" title="Blocca le proporzioni">🔗</button>
+              <div class="field compact"><label for="hIn">Altezza (px)</label><input type="number" id="hIn" min="1" max="16384" step="1" value="1080" inputmode="numeric"></div>
+            </div>
+            <p class="hint" id="exactHint">Con il blocco attivo, scrivendo un lato l'altro viene calcolato dal primo file caricato.</p>
+          </div>
+
+          <div class="mode-row hidden" id="percentRow">
+            <div class="ctl wide"><label for="pct">Scala</label><input type="range" id="pct" min="1" max="400" step="1" value="50"><span class="v" id="pctV">50%</span></div>
+            <div class="chip-row" id="pctChips" role="group" aria-label="Percentuali rapide">
+              <button type="button" class="chip" data-value="25">25%</button>
+              <button type="button" class="chip" data-value="50">50%</button>
+              <button type="button" class="chip" data-value="75">75%</button>
+              <button type="button" class="chip" data-value="150">150%</button>
+              <button type="button" class="chip" data-value="200">200%</button>
+            </div>
+          </div>
+
+          <div class="mode-row hidden" id="longestRow">
+            <div class="field compact"><label for="longest">Lato più lungo (px)</label><input type="number" id="longest" min="1" max="16384" step="1" value="1920" inputmode="numeric"></div>
+            <div class="chip-row" id="longestChips" role="group" aria-label="Dimensioni rapide">
+              <button type="button" class="chip" data-value="2048">2048</button>
+              <button type="button" class="chip" data-value="1920">1920</button>
+              <button type="button" class="chip" data-value="1280">1280</button>
+              <button type="button" class="chip" data-value="1024">1024</button>
+              <button type="button" class="chip" data-value="640">640</button>
+            </div>
+          </div>
+
+          <div class="mode-row hidden" id="presetRow">
+            <div class="field compact">
+              <label for="presetSel">Preset</label>
+              <select id="presetSel">
+                <optgroup label="Social">
+                  <option value="ig-square">Instagram quadrato · 1080 × 1080</option>
+                  <option value="ig-portrait">Instagram verticale · 1080 × 1350</option>
+                  <option value="story">Storia / Reel / TikTok · 1080 × 1920</option>
+                  <option value="yt-thumb">Miniatura YouTube · 1280 × 720</option>
+                  <option value="x-header">Intestazione X · 1500 × 500</option>
+                  <option value="li-banner">Banner LinkedIn · 1584 × 396</option>
+                </optgroup>
+                <optgroup label="Web (longest side)">
+                  <option value="web-1920">Full HD · 1920 px</option>
+                  <option value="web-1600">Grande · 1600 px</option>
+                  <option value="web-1200">Blog · 1200 px</option>
+                  <option value="web-800">Medio · 800 px</option>
+                  <option value="web-400">Miniatura · 400 px</option>
+                </optgroup>
+                <optgroup label="Print (300 dpi)">
+                  <option value="a4">A4 · 2480 × 3508</option>
+                  <option value="letter">US Letter · 2550 × 3300</option>
+                </optgroup>
+                <optgroup label="Avatars &amp; icons">
+                  <option value="av-512">Avatar · 512 × 512</option>
+                  <option value="av-256">Avatar · 256 × 256</option>
+                  <option value="av-128">Icona · 128 × 128</option>
+                  <option value="av-64">Icona · 64 × 64</option>
+                  <option value="av-32">Favicon · 32 × 32</option>
+                </optgroup>
+              </select>
+            </div>
+            <p class="hint" id="presetHint"></p>
+          </div>
+
+          <div class="switch-row"><span>Nessun ingrandimento<small>Non ingrandire mai oltre i pixel originali</small></span><label class="switch"><input type="checkbox" id="noUpscale" checked aria-label="Nessun ingrandimento"><i></i></label></div>
+          <div class="switch-row" id="ssRow"><span>Ingrandimenti con supersampling <span class="pro-badge">PRO</span><small>Genera a 2x, poi riduci per ingrandimenti più puliti</small></span><label class="switch"><input type="checkbox" id="supersample" aria-label="Ingrandimenti con supersampling"><i></i></label></div>
+
+          <p class="sub-label">Preset di dimensione salvati</p>
+          <div class="row">
+            <input type="text" id="presetName" placeholder="Nome, es. Scheda negozio" maxlength="40" style="flex:1;min-width:0">
+            <button type="button" class="btn btn-sm" id="savePreset">Salva</button>
+          </div>
+          <div class="preset-list" id="presetList"></div>
+          <p class="hint" id="savedHint">Gratis: 1 preset salvato · Pro: illimitati</p>
+        </div>
+      </details>
+
+      <details class="panel" open>
+        <summary>Adattamento</summary>
+        <div class="panel-body">
+          <div class="seg" id="fitSeg" role="group" aria-label="Modalità di adattamento">
+            <button type="button" data-value="contain">Mantieni proporzioni</button>
+            <button type="button" data-value="cover">Ritaglia per riempire</button>
+            <button type="button" data-value="stretch">Allunga</button>
+            <button type="button" data-value="pad">Riempi con sfondo</button>
+          </div>
+          <p class="hint" id="fitHint"></p>
+          <div id="anchorRow" class="hidden">
+            <p class="sub-label">Ancoraggio</p>
+            <div class="anchor-grid" id="anchorGrid" role="group" aria-label="Ancoraggio del ritaglio">
+              <button type="button" data-value="tl" aria-label="In alto a sinistra"></button>
+              <button type="button" data-value="t" aria-label="In alto"></button>
+              <button type="button" data-value="tr" aria-label="In alto a destra"></button>
+              <button type="button" data-value="l" aria-label="Sinistra"></button>
+              <button type="button" data-value="c" aria-label="Centro" class="active"></button>
+              <button type="button" data-value="r" aria-label="Destra"></button>
+              <button type="button" data-value="bl" aria-label="In basso a sinistra"></button>
+              <button type="button" data-value="b" aria-label="In basso"></button>
+              <button type="button" data-value="br" aria-label="In basso a destra"></button>
+            </div>
+          </div>
+          <div id="padRow" class="hidden">
+            <p class="sub-label">Sfondo di riempimento</p>
+            <div class="row-between">
+              <div class="inline-color"><input type="color" id="padColor" value="#ffffff" aria-label="Colore di riempimento"><span class="hint" style="margin:0">Colore</span></div>
+              <label class="checkbox"><input type="checkbox" id="padTransparent"> Trasparente (PNG/WebP)</label>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="panel" open>
+        <summary>Formato</summary>
+        <div class="panel-body">
+          <div class="seg" id="formatSeg" role="group" aria-label="Formato di output">
+            <button type="button" data-value="keep">Mantieni</button>
+            <button type="button" data-value="image/jpeg">JPG</button>
+            <button type="button" data-value="image/png">PNG</button>
+            <button type="button" data-value="image/webp">WebP</button>
+          </div>
+          <div class="ctl wide" id="qualityRow" style="margin-top:12px"><label for="quality">Qualità</label><input type="range" id="quality" min="10" max="100" step="1" value="90"><span class="v" id="qualityV">90</span></div>
+          <p class="hint" id="formatHint"></p>
+          <div class="field compact" style="margin-top:10px">
+            <label for="pattern">Schema del nome file</label>
+            <input type="text" id="pattern" value="{name}-{w}x{h}" placeholder="{name}-{w}x{h}" autocomplete="off" maxlength="80">
+            <p class="hint">Usa {name}, {w}, {h}, {index}. L'estensione viene aggiunta automaticamente.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="panel">
+        <summary>Video</summary>
+        <div class="panel-body">
+          <p class="hint" style="margin-top:0">I video vengono decodificati dal tuo browser, ogni fotogramma viene ridisegnato alla nuova dimensione e registrato di nuovo con la traccia audio. L'output è <b>.webm</b> (VP9 o VP8 + Opus). La conversione avviene a velocità 1x, quindi una clip di 20 s richiede circa 20 s.</p>
+          <ul class="limits" id="videoLimits">
+            <li>Gratis: fino a <b>30 s</b>, output massimo <b>720p</b></li>
+            <li>Pro: fino a <b>5 min</b>, output <b>1080p / 4K</b></li>
+          </ul>
+          <p class="hint">L'output MP4 non è possibile in un browser senza scaricare un enorme codificatore. WebM si riproduce in tutti i browser moderni, in VLC e su YouTube/Instagram; se un'app richiede proprio MP4, converti il WebM con HandBrake o VLC (Media → Converti).</p>
+          <p class="hint" id="recorderSupport"></p>
+        </div>
+      </details>
+
+      <div class="ad-slot" data-slot="sidebar-1"></div>
+      <div class="card pro-card">
+        <h3>Passa a Pro <span class="pro-badge">A VITA</span></h3>
+        <ul>
+          <li>Nessuna filigrana su immagini o video</li>
+          <li>Batch illimitati + download ZIP</li>
+          <li>Video fino a 5 min in 1080p / 4K</li>
+          <li>Ingrandimento con supersampling e preset salvati</li>
+        </ul>
+        <button class="btn btn-primary btn-block" data-action="pro" data-arg="sidebar">Passa a Pro – <span data-pro-price>$9</span> una tantum</button>
+      </div>
+      <div class="card lead-card" id="leadCard" hidden>
+        <h3>Consigli su immagini e video</h3>
+        <p class="hint">Impostazioni di esportazione che mantengono alta la qualità e leggeri i file, più nuovi strumenti. Niente spam.</p>
+        <form class="lead-form" data-action="newsletter">
+          <input type="email" name="email" required placeholder="tu@email.com" aria-label="Indirizzo email" autocomplete="email">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+          <button class="btn btn-primary" type="submit">Abbonati</button>
+        </form>
+        <p class="hint tiny">Niente spam. Annulli l'iscrizione quando vuoi.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<section class="content container">
+  <div class="features">
+    <div class="feature"><div class="ic">📐</div><h3>Qualsiasi dimensione, in quattro modi</h3><p>Larghezza × altezza esatte con blocco delle proporzioni, una percentuale dall'1 al 400 %, un limite sul lato più lungo o 18 preset per social, web, stampa e avatar.</p></div>
+    <div class="feature"><div class="ic">✂️</div><h3>Mantieni, ritaglia, allunga o riempi</h3><p>Adatta dentro il riquadro, ritaglia per riempire con un ancoraggio a nove punti, forza la dimensione esatta o riempi con un colore o con la trasparenza.</p></div>
+    <div class="feature"><div class="ic">🎬</div><h3>Anche i video</h3><p>Ridimensiona clip MP4, WebM e MOV in 9:16, 1:1 o 16:9 e ottieni un WebM con l'audio originale, registrato interamente nel tuo browser.</p></div>
+    <div class="feature"><div class="ic">🔒</div><h3>Privato per natura</h3><p>I file vengono decodificati, ridimensionati e codificati sul tuo dispositivo con le API Canvas e MediaRecorder. Nessun caricamento, nessun server, funziona offline.</p></div>
+  </div>
+
+  <h2>Come ridimensionare un'immagine senza perdere qualità</h2>
+  <p>Ridimensionare cambia il numero di pixel, quindi la vera domanda è come vengono calcolati i nuovi pixel. Quando riduci una foto da 4000 pixel a 800 pixel in un solo passaggio, ogni pixel di output deve riassumere 25 pixel di origine, e un ricampionatore ingenuo ne salta semplicemente la maggior parte. È da lì che vengono diagonali seghettate, texture tremolanti e l'effetto moiré sui tessuti. Size Converter lo evita <strong>riducendo per gradi</strong>: l'immagine viene dimezzata più volte con un filtro bilineare di alta qualità finché non è entro 2× dalla dimensione di destinazione, poi viene ricampionata un'ultima volta alla dimensione esatta. Ogni passaggio fa la media dei pixel vicini in modo corretto, così i bordi restano morbidi e i dettagli fini vengono fusi invece che persi.</p>
+  <p>Il formato conta quanto il ricampionamento. Salva screenshot, loghi, testo e tutto ciò che ha colori piatti come <strong>PNG</strong>, che è senza perdita. Salva le foto come <strong>JPG</strong> o <strong>WebP</strong> a qualità 85–92; sotto 80 iniziano a vedersi blocchi intorno ai bordi. WebP è circa il 30 % più leggero di JPG a parità di qualità e mantiene la trasparenza, il che lo rende la scelta migliore per i siti web. Se ti servono trasparenza e massima compatibilità, PNG è l'unica opzione.</p>
+  <p>Ingrandire è diverso: nessun ridimensionatore può creare dettagli che non sono mai stati catturati, quindi un'immagine da 400 pixel allargata a 1600 pixel apparirà sempre morbida. Lascia l'opzione <em>Nessun ingrandimento</em> attiva per l'uso quotidiano. Quando devi davvero ingrandire, per esempio per una stampa, il <strong>supersampling</strong> di Pro genera l'immagine al doppio della dimensione di destinazione e poi la riduce, producendo bordi più puliti di un ingrandimento diretto.</p>
+
+  <h2>Quando ti serve una dimensione esatta</h2>
+  <p>La maggior parte dei moduli e delle piattaforme non vuole "più o meno così"; vuole un riquadro preciso in pixel. Casi tipici:</p>
+  <ul>
+    <li><strong>Foto per documenti e passaporti.</strong> Le domande online di solito chiedono un'immagine quadrata o da 35 × 45 mm a una dimensione fissa in pixel (600 × 600 per la lotteria DV degli Stati Uniti, 413 × 531 per molti portali 35 × 45 mm). Usa <em>Esatta</em> con <em>Ritaglia per riempire</em> e sposta l'ancoraggio così la testa resta al centro.</li>
+    <li><strong>Annunci sui marketplace.</strong> Etsy, eBay, Amazon e Shopify mostrano al meglio le foto prodotto a 2000 pixel sul lato più lungo, possibilmente quadrate. Usa <em>Riempi con sfondo</em> con sfondo bianco per trasformare una foto 4:3 in un'immagine 1:1 per la scheda prodotto senza tagliare nulla.</li>
+    <li><strong>Firme email.</strong> Un logo per la firma dovrebbe essere largo 300–400 pixel e pesare meno di 50 KB, così non appesantisce ogni messaggio; ridimensiona con <em>Lato più lungo</em> 320 e salva in PNG.</li>
+    <li><strong>Favicon e icone delle app.</strong> I preset per avatar producono quadrati da 512, 256, 128, 64 e 32 pixel. Ridimensiona prima la versione da 512, poi crea quelle più piccole partendo dalla stessa origine invece che l'una dall'altra.</li>
+    <li><strong>Copertine social.</strong> L'intestazione di X misura 1500 × 500 e il banner di LinkedIn 1584 × 396, entrambi molto larghi; ritaglia una foto orizzontale con l'ancoraggio sulla parte che vuoi tenere.</li>
+  </ul>
+
+  <h2>Ridimensionare un video: risoluzione, rapporto d'aspetto e bitrate</h2>
+  <p>La <strong>risoluzione</strong> di un video è la dimensione in pixel di ogni fotogramma; 1920 × 1080 è 1080p, 1280 × 720 è 720p, 3840 × 2160 è 4K. Il <strong>rapporto d'aspetto</strong> è la forma: 16:9 per YouTube e TV, 9:16 per Storie, Reel, Shorts e TikTok, 1:1 per i post del feed e 4:5 per Instagram verticale. Passare da una forma all'altra significa sempre ritagliare o riempire, ed è qui che l'ancoraggio di <em>Ritaglia per riempire</em> si rivela utile: per una clip con una persona che parla in camera che passa da 16:9 a 9:16, imposta l'ancoraggio al centro (o dove si trova la persona) e il soggetto resta nell'inquadratura mentre lo sfondo vuoto viene tagliato.</p>
+  <p>Il <strong>bitrate</strong> è il numero di bit al secondo che il codificatore può usare, e determina peso e qualità del file molto più della risoluzione. Size Converter sceglie un bitrate proporzionale al numero di pixel in uscita, circa 2.5 Mbps per il 720p e 5 Mbps per il 1080p, che mantiene leggeri i file caricati con una resa pulita su un telefono. Poiché la clip viene riprodotta a velocità normale mentre viene registrata di nuovo, un video di 30 secondi richiede circa 30 secondi; tieni la scheda in primo piano così il browser non riduce il frame rate.</p>
+
+  <h2>I tuoi file non lasciano mai il dispositivo</h2>
+  <p>Size Converter è una pagina statica. Le immagini vengono decodificate con <code>createImageBitmap</code>, disegnate su una canvas e codificate di nuovo dal tuo browser; i video vengono riprodotti da un elemento <code>&lt;video&gt;</code> nascosto, ridisegnati fotogramma per fotogramma e registrati con <code>MediaRecorder</code>. Non esiste un endpoint di caricamento, nessun account e niente da eliminare dopo. La ricodifica tramite canvas rimuove anche dalle foto i metadati EXIF come coordinate GPS e numeri di serie della fotocamera. Le impostazioni di dimensione, adattamento e formato vengono salvate nel <code>localStorage</code> così lo strumento si riapre come l'hai lasciato.</p>
+
+  <h2>Domande frequenti</h2>
+  <div class="faq">
+    <details><summary>Come ridimensiono un'immagine a una dimensione precisa in pixel?</summary><p>Trascina l'immagine, scegli "Esatta" in Dimensione di output e scrivi larghezza e altezza, per esempio 800 × 600. Con il blocco delle proporzioni attivo, scrivendo un lato l'altro si compila da solo così l'immagine non si deforma. Se la destinazione ha una forma diversa dall'originale, scegli una modalità di adattamento: "Mantieni proporzioni" la fa stare dentro il riquadro, "Ritaglia per riempire" taglia i bordi, "Allunga" forza la dimensione esatta e "Riempi con sfondo" aggiunge uno sfondo. Poi scarica il risultato.</p></details>
+    <details><summary>Ridimensionare riduce la qualità dell'immagine?</summary><p>Ridurre un'immagine la mantiene nitida se fatto bene. Size Converter riduce le immagini grandi per gradi (dimezzandole finché non si avvicinano alla destinazione) con un ricampionamento di alta qualità, evitando l'aliasing e i bordi seghettati che produce un ridimensionamento in un solo passaggio. L'ingrandimento non può inventare dettagli, quindi un'immagine ingrandita appare sempre più morbida; l'opzione Pro di supersampling genera a 2x e poi riduce per rendere il risultato il più pulito possibile. Salvare in PNG conserva ogni pixel; JPG e WebP usano il cursore della qualità (90 di default).</p></details>
+    <details><summary>Posso ridimensionare un video online senza caricarlo?</summary><p>Sì. Size Converter decodifica il video con il player integrato del browser, disegna ogni fotogramma su una canvas alla nuova dimensione e registra il risultato con la MediaRecorder API, copiando la traccia audio. Nulla viene inviato a un server. L'output è un file WebM (VP9 o VP8 con audio Opus). Gli utenti gratuiti possono convertire clip fino a 30 secondi e fino a 720p; Pro estende il limite a 5 minuti e a 1080p o 4K.</p></details>
+    <details><summary>Perché l'output video è WebM e non MP4?</summary><p>I browser possono registrare video con MediaRecorder, ma quasi tutti codificano solo in WebM (VP8/VP9): la registrazione in MP4/H.264 non è disponibile in una semplice pagina web senza includere un codificatore di diversi megabyte. WebM si riproduce in Chrome, Edge, Firefox, Safari 16+, Android, VLC e si carica senza problemi su YouTube, Instagram e la maggior parte dei social network. Se un'app richiede proprio MP4, apri il WebM in un convertitore gratuito come HandBrake o VLC (Media → Converti) ed esporta in H.264.</p></details>
+    <details><summary>Quali dimensioni usano i social network?</summary><p>Il menu Preset include gli standard attuali: Instagram quadrato 1080 × 1080, Instagram verticale 1080 × 1350, Storie e Reel 1080 × 1920, miniatura YouTube 1280 × 720, intestazione X/Twitter 1500 × 500 e banner LinkedIn 1584 × 396, più larghezze web (1920, 1600, 1200, 800, 400), formati di stampa (A4 e Letter a 300 dpi) e quadrati per avatar/favicon da 512 fino a 32 pixel. Usa "Ritaglia per riempire" con la griglia di ancoraggio così il soggetto resta nell'inquadratura quando cambia il rapporto.</p></details>
+    <details><summary>Size Converter è gratis e i miei file sono privati?</summary><p>Sì. Ridimensionare immagini e brevi video è gratis senza registrazione. Le esportazioni gratuite riportano un piccolo badge "Size Converter · free" e "Scarica tutto" gestisce 10 file alla volta. I file vengono elaborati interamente sul tuo dispositivo con le API Canvas e MediaRecorder e non lasciano mai il computer; lo strumento continua a funzionare offline una volta caricato. Size Converter Pro è un acquisto una tantum che rimuove il badge e sblocca batch illimitati con download ZIP, video più lunghi e più grandi, ingrandimento con supersampling e preset di dimensione salvati.</p></details>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand-mark lg" aria-hidden="true"></span>
+      <div>
+        <strong>Be Management Tools</strong>
+        <p>Una raccolta di strumenti gratuiti e privati che funzionano interamente nel tuo browser. Size Converter è lo strumento della famiglia per ridimensionare immagini e video, creato e gestito da Be Management.</p>
+      </div>
+    </div>
+    <div class="footer-tools">
+      <strong>Altri strumenti gratuiti</strong>
+      <ul>
+        <li><a href="https://quickinvoice-tool.vercel.app">QuickInvoice · Fatture</a></li>
+        <li><a href="https://ratecalc-tool.vercel.app">RateCalc · Tariffe freelance</a></li>
+        <li><a href="https://qrforge-tool.vercel.app">QRForge · Codici QR</a></li>
+        <li><a href="https://squish-tool.vercel.app">Squish · Compressore di immagini</a></li>
+        <li><a href="https://growthcalc-tool.vercel.app">GrowthCalc · Interesse composto</a></li>
+        <li><a href="https://subnetkit-tool.vercel.app">SubnetKit · Subnet IP</a></li>
+        <li><a href="https://shotstudio-tool.vercel.app">Screenshot Studio · Mockup di screenshot</a></li>
+        <li><a href="https://mockuplab-tool.vercel.app">Social Mockup Lab · Mockup di chat e post</a></li>
+        <li><a href="https://carouselmaker-tool.vercel.app">Carousel Maker · Slide per caroselli</a></li>
+        <li><a href="https://creativeresize-tool.vercel.app">Creative Resize · Formati social</a></li>
+        <li><a href="https://framelab-tool.vercel.app">Frame Lab · Cornici e mockup per foto</a></li>
+        <li><a href="https://giveaway-tool.vercel.app">Giveaway Picker · Giveaway su Instagram</a></li>
+        <li><a href="https://iplookup-tool.vercel.app">IP Lookup · Ricerca IP</a></li>
+        <li><a href="https://sizeconverter-tool.vercel.app" class="current">Size Converter · Ridimensiona immagini e video</a></li>
+      </ul>
+    </div>
+    <div class="footer-meta">
+      <span>© <span data-year></span> Be Management · Size Converter. Ridimensionatore di immagini e video gratuito. Non viene caricato nulla.</span>
+      <span><a href="/it/privacy" data-i18n-href="/it/privacy">Privacy</a> · <a href="/it/terms" data-i18n-href="/it/terms">Termini</a> · <a href="#" data-action="cookie-settings">Impostazioni cookie</a> · <a href="https://www.bemanagement.pro" rel="noopener">bemanagement.pro</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Pro modal -->
+<div class="modal" id="proModal" role="dialog" aria-modal="true">
+  <div class="card">
+    <button class="btn btn-sm close" data-action="close-pro">✕</button>
+    <h3>Passa a Size Converter Pro <span class="pro-badge">A VITA</span></h3>
+    <div class="price"><span id="proPrice"></span> <small>una tantum</small></div>
+    <ul>
+      <li>Nessuna filigrana</li>
+      <li>Batch illimitati + ZIP</li>
+      <li>Video fino a 5 min in 1080p/4K</li>
+      <li>Ingrandimento con supersampling</li>
+      <li>Preset salvati</li>
+      <li>Aggiornamenti a vita</li>
+    </ul>
+    <button class="btn btn-primary btn-block" data-action="checkout">Passa a Pro</button>
+    <p class="hint" style="margin-top:12px">Hai già acquistato? <a href="#" data-action="toggle-license">Inserisci la chiave di licenza</a></p>
+    <div class="row hidden" id="licenseRow"><input id="licenseKey" placeholder="Chiave di licenza"><button class="btn" data-action="activate-license">Attiva</button></div>
+  </div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

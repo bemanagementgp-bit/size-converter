@@ -49,17 +49,23 @@
     format: 'keep', quality: 90, pattern: '{name}-{w}x{h}'
   };
   const S = Studio.restore(STATE_KEY, DEF);
-  Object.keys(DEF).forEach((k) => { if (typeof S[k] !== typeof DEF[k]) S[k] = DEF[k]; });
-  if (!['exact', 'percent', 'longest', 'preset'].includes(S.mode)) S.mode = 'exact';
-  if (!['contain', 'cover', 'stretch', 'pad'].includes(S.fit)) S.fit = 'contain';
-  if (!ANCHOR[S.anchor]) S.anchor = 'c';
-  if (!PRESETS[S.preset]) S.preset = 'ig-square';
-  if (!['keep', 'image/jpeg', 'image/png', 'image/webp'].includes(S.format)) S.format = 'keep';
-  S.w = clamp(round(S.w) || 1080, 1, MAX_SIDE); S.h = clamp(round(S.h) || 1080, 1, MAX_SIDE);
-  S.percent = clamp(round(S.percent) || 50, 1, 400); S.longest = clamp(round(S.longest) || 1920, 1, MAX_SIDE);
-  S.quality = clamp(round(S.quality) || 90, 10, 100);
-  if (!/^#[0-9a-f]{6}$/i.test(S.padColor)) S.padColor = '#ffffff';
-  S.pattern = String(S.pattern || DEF.pattern).slice(0, 80);
+  const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+  // Validates state restored from localStorage and saved presets (untrusted): types, enums, ranges.
+  function sanitizeS(o) {
+    Object.keys(DEF).forEach((k) => { if (typeof o[k] !== typeof DEF[k]) o[k] = DEF[k]; });
+    if (!['exact', 'percent', 'longest', 'preset'].includes(o.mode)) o.mode = 'exact';
+    if (!['contain', 'cover', 'stretch', 'pad'].includes(o.fit)) o.fit = 'contain';
+    if (!own(ANCHOR, o.anchor)) o.anchor = 'c';
+    if (!own(PRESETS, o.preset)) o.preset = 'ig-square';
+    if (!['keep', 'image/jpeg', 'image/png', 'image/webp'].includes(o.format)) o.format = 'keep';
+    o.w = clamp(round(o.w) || 1080, 1, MAX_SIDE); o.h = clamp(round(o.h) || 1080, 1, MAX_SIDE);
+    o.percent = clamp(round(o.percent) || 50, 1, 400); o.longest = clamp(round(o.longest) || 1920, 1, MAX_SIDE);
+    o.quality = clamp(round(o.quality) || 90, 10, 100);
+    if (!/^#[0-9a-f]{6}$/i.test(o.padColor)) o.padColor = '#ffffff';
+    o.pattern = String(o.pattern || DEF.pattern).slice(0, 80);
+    return o;
+  }
+  sanitizeS(S);
 
   // ---- Elements ----
   const el = {};
@@ -91,7 +97,7 @@
   }
   function fmtTime(sec) { sec = round(sec || 0); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); }
   function baseName(name) { return (name || 'file').replace(/\.[^.]+$/, '') || 'file'; }
-  function extOf(name) { const m = /\.([^.]+)$/.exec(name || ''); return m ? m[1].toLowerCase() : ''; }
+  function extOf(name) { const m = /\.([a-z0-9]{1,8})$/i.exec(name || ''); return m ? m[1].toLowerCase() : ''; }
   function isImageFile(f) { return !!f && ((f.type && f.type.startsWith('image/')) || /\.(jpe?g|png|webp|gif|bmp|avif|svg|heic|heif|tiff?)$/i.test(f.name || '')); }
   function isVideoFile(f) { return !!f && ((f.type && f.type.startsWith('video/')) || /\.(mp4|webm|mov|m4v|ogv|mkv)$/i.test(f.name || '')); }
   function even(n) { n = Math.max(2, round(n)); return n % 2 ? n - 1 : n; }
@@ -507,7 +513,7 @@
     li.className = 'file status-' + it.status;
     const thumb = it.kind === 'video'
       ? (it.poster ? '<img class="thumb" src="' + it.poster.toDataURL('image/jpeg', 0.6) + '" alt="">' : '<div class="thumb video" aria-hidden="true">🎬</div>')
-      : '<img class="thumb" src="' + (it.outUrl || it.origUrl) + '" alt="" loading="lazy" decoding="async">';
+      : '<img class="thumb" src="' + esc(/^blob:/.test(String(it.outUrl || it.origUrl || '')) ? (it.outUrl || it.origUrl) : '') + '" alt="" loading="lazy" decoding="async">';
     const dims = it.w ? '<span class="dims">' + it.w + '×' + it.h + '</span>' : '';
     let state = '';
     if (it.status === 'queued') state = '<span class="st queued">Waiting…</span>';
@@ -552,8 +558,9 @@
   function outputName(it, index) {
     const ext = EXT[it.outType] || extOf(it.name) || 'png';
     let name = (S.pattern || DEF.pattern)
-      .replace(/\{name\}/g, baseName(it.name)).replace(/\{w\}/g, it.outW).replace(/\{h\}/g, it.outH).replace(/\{index\}/g, String(index + 1));
-    name = name.replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim();
+      .replace(/\{name\}/g, () => baseName(it.name)).replace(/\{w\}/g, () => it.outW).replace(/\{h\}/g, () => it.outH).replace(/\{index\}/g, () => String(index + 1));
+    // no path separators / control chars in downloaded names
+    name = name.replace(/[\\/:*?"<>|\u0000-\u001f\u007f]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 200);
     if (!name) name = baseName(it.name) + '-' + it.outW + 'x' + it.outH;
     return name + '.' + ext;
   }
@@ -618,7 +625,16 @@
   }
 
   // ---- Saved size presets ----
-  function loadPresets() { try { const p = JSON.parse(localStorage.getItem(PRESETS_KEY) || '[]'); return Array.isArray(p) ? p : []; } catch (e) { return []; } }
+  function loadPresets() {
+    const p = Studio.safeParse(localStorage.getItem(PRESETS_KEY) || '[]', []);
+    if (!Array.isArray(p)) return [];
+    const KEYS = ['mode', 'w', 'h', 'percent', 'longest', 'preset', 'fit', 'anchor', 'noUpscale', 'padColor', 'padTransparent'];
+    return p.filter((x) => x && typeof x === 'object').slice(0, 200).map((x) => {
+      const o = sanitizeS(Studio.safeAssign({}, DEF, x)), out = { name: String(x.name == null ? '' : x.name).slice(0, 60) };
+      KEYS.forEach((k) => { out[k] = o[k]; });
+      return out;
+    });
+  }
   function storePresets() { try { localStorage.setItem(PRESETS_KEY, JSON.stringify(savedPresets)); } catch (e) { /* noop */ } }
   function presetSummary(p) {
     if (p.mode === 'exact') return p.w + '×' + p.h;
@@ -634,13 +650,14 @@
     el.savedHint.textContent = isPro() ? 'Pro: unlimited saved presets' : 'Free: 1 saved preset · Pro: unlimited';
   }
   function savePreset() {
-    const name = (el.presetName.value || '').trim() || ('Preset ' + (savedPresets.length + 1));
+    const name = (el.presetName.value || '').trim().slice(0, 60) || ('Preset ' + (savedPresets.length + 1));
     if (!isPro() && savedPresets.length >= 1) { openPro('presets'); return; }
     savedPresets.push({ name, mode: S.mode, w: S.w, h: S.h, percent: S.percent, longest: S.longest, preset: S.preset, fit: S.fit, anchor: S.anchor, noUpscale: S.noUpscale, padColor: S.padColor, padTransparent: S.padTransparent });
     storePresets(); renderPresets(); el.presetName.value = ''; toast('Preset saved'); track('preset_save', {});
   }
   function applyPreset(p) {
     ['mode', 'w', 'h', 'percent', 'longest', 'preset', 'fit', 'anchor', 'noUpscale', 'padColor', 'padTransparent'].forEach((k) => { if (p[k] !== undefined) S[k] = p[k]; });
+    sanitizeS(S);
     applyToUI(); onChange(); toast('Preset "' + p.name + '" applied'); track('preset_apply', {});
   }
 
