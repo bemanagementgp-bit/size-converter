@@ -248,6 +248,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 
 
 
+
 /* ===== Size Converter – app styles ===== */
 .studio-canvas{min-height:min(48vh,520px)}
 .studio-canvas canvas{max-height:min(48vh,520px);border-radius:4px}

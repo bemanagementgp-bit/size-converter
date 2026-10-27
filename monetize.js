@@ -295,6 +295,40 @@
     return false;
   };
 
+  // ---- PWA: service worker + "Install" button (Add to Home Screen) ----
+  let installEvt = null;
+  const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  function showInstallBtn() { const b = document.getElementById('installBtn'); if (b && !isStandalone()) b.classList.remove('hidden'); }
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; showInstallBtn(); });
+  window.addEventListener('appinstalled', () => { installEvt = null; const b = document.getElementById('installBtn'); if (b) b.classList.add('hidden'); track('pwa_installed', {}); toast('Installed! Find ' + (C.APP_NAME || 'the app') + ' on your home screen.'); });
+  window.installApp = async function () {
+    track('pwa_install_click', {});
+    if (installEvt) { installEvt.prompt(); const r = await installEvt.userChoice; if (r.outcome === 'accepted') installEvt = null; return; }
+    const m = document.getElementById('proModal');
+    const how = isIOS()
+      ? 'On iPhone/iPad: tap <b>Share</b> (the square with an arrow) → <b>Add to Home Screen</b>.'
+      : /android/i.test(navigator.userAgent)
+        ? 'In Chrome: open the <b>⋮ menu</b> → <b>Add to Home screen</b> / <b>Install app</b>.'
+        : 'In Chrome or Edge on desktop: click the <b>install icon</b> at the right of the address bar, or open the browser menu → <b>Install ' + (C.APP_NAME || 'app') + '</b>. Safari: File → Add to Dock.';
+    if (!m) { toast('Use your browser menu → Add to Home Screen'); return; }
+    const card = m.querySelector('.card');
+    const prev = card.innerHTML;
+    card.innerHTML = '<button class="btn btn-sm close" onclick="closePro()">✕</button><h3>Install ' + (C.APP_NAME || '') + '</h3><p>' + how + '</p><p class="hint">Works offline once installed. No app store needed.</p>';
+    m.classList.add('open');
+    m.addEventListener('transitionend', () => {}, { once: true });
+    const restore = () => { if (!m.classList.contains('open')) { card.innerHTML = prev; renderProStatus(); document.removeEventListener('click', restore); } };
+    setTimeout(() => document.addEventListener('click', restore), 0);
+  };
+  if ('serviceWorker' in navigator && location.protocol === 'https:' || location.hostname === 'localhost') {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
+        reg.addEventListener('updatefound', () => { const nw = reg.installing; nw && nw.addEventListener('statechange', () => { if (nw.state === 'installed' && navigator.serviceWorker.controller) toast('Update ready. Reload to get the latest version.'); }); });
+      }).catch(() => {});
+      if (isIOS() && !isStandalone()) showInstallBtn(); // iOS has no beforeinstallprompt; show manual instructions
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     mountAds(); mountLead(); renderProStatus(); recheckLicense(); mountCatalog(); handlePaymentReturn();
     document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
