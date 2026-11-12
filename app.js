@@ -605,21 +605,23 @@
   }
 
   // ---- Sample image ----
+  // Generic sample: a neutral "photo" placeholder — no text, brands or scenes, so the tool is what people look at.
+  function paintPlaceholder(x, w, h) {
+    const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#dcdde1'); g.addColorStop(1, '#c4c6cd');
+    x.fillStyle = g; x.fillRect(0, 0, w, h);
+    const s = Math.min(w, h) * 0.34, fw = s * 1.3, fh = s, fx = (w - fw) / 2, fy = (h - fh) / 2, r = s * 0.1;
+    x.beginPath(); x.moveTo(fx + r, fy); x.arcTo(fx + fw, fy, fx + fw, fy + fh, r); x.arcTo(fx + fw, fy + fh, fx, fy + fh, r);
+    x.arcTo(fx, fy + fh, fx, fy, r); x.arcTo(fx, fy, fx + fw, fy, r); x.closePath();
+    x.strokeStyle = '#a4a7b1'; x.lineWidth = Math.max(4, s * 0.035); x.lineJoin = 'round'; x.stroke();
+    x.save(); x.clip();
+    x.fillStyle = '#b5b8c0'; x.beginPath(); x.arc(fx + fw * 0.7, fy + fh * 0.32, s * 0.11, 0, Math.PI * 2); x.fill();
+    x.fillStyle = '#a4a7b1'; x.beginPath(); x.moveTo(fx, fy + fh); x.lineTo(fx + fw * 0.34, fy + fh * 0.46); x.lineTo(fx + fw * 0.58, fy + fh * 0.76);
+    x.lineTo(fx + fw * 0.74, fy + fh * 0.6); x.lineTo(fx + fw, fy + fh * 0.88); x.lineTo(fx + fw, fy + fh); x.closePath(); x.fill();
+    x.restore();
+  }
   async function makeSample() {
     const w = 2000, h = 1200, c = document.createElement('canvas'); c.width = w; c.height = h;
-    const x = c.getContext('2d');
-    const g = x.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#1e3a8a'); g.addColorStop(0.55, '#7c3aed'); g.addColorStop(1, '#f97316');
-    x.fillStyle = g; x.fillRect(0, 0, w, h);
-    x.fillStyle = 'rgba(255,255,255,.08)';
-    for (let i = 0; i < 12; i++) { x.beginPath(); x.arc(200 + i * 160, 300 + Math.sin(i) * 180, 120, 0, Math.PI * 2); x.fill(); }
-    x.strokeStyle = 'rgba(255,255,255,.35)'; x.lineWidth = 3;
-    for (let i = 0; i <= w; i += 100) { x.beginPath(); x.moveTo(i, 0); x.lineTo(i, h); x.stroke(); }
-    for (let j = 0; j <= h; j += 100) { x.beginPath(); x.moveTo(0, j); x.lineTo(w, j); x.stroke(); }
-    x.fillStyle = '#fff'; x.textAlign = 'center';
-    x.font = '800 150px Inter, system-ui, sans-serif'; x.fillText('2000 × 1200', w / 2, h / 2 + 50);
-    x.font = '600 48px Inter, system-ui, sans-serif'; x.fillText('Sample image · resize me', w / 2, h / 2 + 140);
-    x.fillStyle = '#f97316'; Studio.roundRect(x, 60, 60, 260, 260, 40); x.fill();
-    x.fillStyle = '#22c55e'; Studio.roundRect(x, w - 320, h - 320, 260, 260, 40); x.fill();
+    paintPlaceholder(c.getContext('2d'), w, h);
     const blob = await Studio.toBlob(c, 'image/png');
     return new File([blob], 'sample-2000x1200.png', { type: 'image/png' });
   }
