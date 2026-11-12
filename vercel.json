@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://tools.bemanagement.pro/size-converter/:path*",
+      "statusCode": 301
+    }
+  ],
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
